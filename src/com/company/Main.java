@@ -6,7 +6,8 @@ class Main {
 
         Dwelling Dom = new Dwelling(5,4);
         System.out.println(Dom.getMassSpace());
-        System.out.println("line");
+        System.out.println("line846456454");
 
     }
 }
+
