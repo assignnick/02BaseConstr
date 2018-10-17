@@ -1,27 +1,29 @@
 package OfficeBuildings;
 
 public class OfficeFloor {
-    private Office[] offices;
+    //private Office[] offices;
    private int numOffices;
-   private static class Unit { //узел списка
-        Unit next;
-        Office anOffice;
+    private static class Node { //узел списка
+        Node next;
+        Office oneOffice;
     }
-    private Unit head;
-    private Unit tail;
+    private Node head;
+    private Node tail;
 
-    private OfficeFloor() {
-        head = new Unit();
+
+
+    private OfficeFloor() {  //конструктор
+        head = new Node();
         head.next = head;
     }
 
-    public OfficeFloor(int numOffices) {  //конструктор
+    public OfficeFloor(int numOffices) {  //конструктор с количеством офисов
         this();
-        Unit theHead = head;
+        Node theHead = head;
         this.numOffices = numOffices;
         for (int i = 0; i < numOffices; i++){
-            Unit x = new Unit();
-            x.anOffice = new Office();
+            Node x = new Node();
+            x.oneOffice = new Office();
             theHead.next = x;
             theHead = x;
         }
@@ -29,10 +31,10 @@ public class OfficeFloor {
     }
     public OfficeFloor(Office[] newOfFlat) {//конструктор для массива
         this();
-        Unit theHead = head;
-        for (int i = 0; i < numOffices; i++){
-            Unit x = new Unit();
-            x.anOffice = newOfFlat[i];
+        Node theHead = head;
+        for (int i = 0; i < newOfFlat.length; i++){
+            Node x = new Node();
+            x.oneOffice = newOfFlat[i];
             theHead.next = x;
             theHead = x;
         }
@@ -40,8 +42,8 @@ public class OfficeFloor {
     }
 
     void addFront(Office newOf, int number) { //добавить спереди
-        Unit a = new Unit();
-        a.anOffice = newOf;
+        Node a = new Node();
+        a.oneOffice = newOf;
         for (int i = 0; i < number; i++) {
             a = a.next;
         }
@@ -57,9 +59,17 @@ public class OfficeFloor {
         }
     }
 
+    private Node getNode(int index) { //приватный метод получения узла по его номеру
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
     void addBack(Office newOf) {  //добавление в конец списка
-        Unit a = new Unit();
-        a.anOffice = newOf;
+        Node a = new Node();
+        a.oneOffice = newOf;
         if (tail == null)
         {
             head = a;
@@ -81,14 +91,14 @@ public class OfficeFloor {
             return;             //и выходим
         }
 
-        if (head.anOffice == delOf) {    //если первый элемент - тот, что нам нужен
+        if (head.oneOffice == delOf) {    //если первый элемент - тот, что нам нужен
             head = head.next;       //переключаем указатель начала на второй элемент
             return;                 //и выходим
         }
 
-        Unit t = head;       //иначе начинаем искать
+        Node t = head;       //иначе начинаем искать
         while (t.next != null) {    //пока следующий элемент существует
-            if (t.next.anOffice == delOf) {  //проверяем следующий элемент
+            if (t.next.oneOffice == delOf) {  //проверяем следующий элемент
                 if(tail == t.next)      //если он последний
                 {
                     tail = t;           //то переключаем указатель на последний элемент на текущий
