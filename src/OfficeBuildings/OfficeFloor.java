@@ -8,9 +8,6 @@ public class OfficeFloor {
         Office oneOffice;
     }
     private Node head;
-    private Node tail;
-
-
 
     private OfficeFloor() {  //конструктор
         head = new Node();
@@ -31,6 +28,7 @@ public class OfficeFloor {
     }
     public OfficeFloor(Office[] newOfFlat) {//конструктор для массива
         this();
+        numOffices=newOfFlat.length;
         Node theHead = head;
         for (int i = 0; i < newOfFlat.length; i++){
             Node x = new Node();
@@ -50,7 +48,6 @@ public class OfficeFloor {
         if(head == null)
         {
             head = a;
-            tail = a;
         }
         else {
             a.next = head;
@@ -142,10 +139,11 @@ public class OfficeFloor {
     }
 
     public void changeOffice(int number, Office newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
-        Node temp=head;
+       /* Node temp=head;
         for (int i=0;i<number;i++)
             temp = temp.next;
-        temp.next.oneOffice= newOffice;
+        temp.next.oneOffice= newOffice;*/
+       getNode(number).oneOffice=newOffice;
     }
 
     public void addOffice(int number, Office newOffice){  //метод добавления нового офиса на этаже по будущему номеру офиса
