@@ -1,10 +1,15 @@
 package OfficeBuildings;
 
+import exceptions.SpaceIndexOutOfBoundsException;
+import interfaces.Building;
+import interfaces.Floor;
+import interfaces.Space;
+
 import java.util.Arrays;
 
 
 
-public class OfficeBuilding {
+public class OfficeBuilding implements Building {
     private int numFloors;
     private static class Node { //узел списка
         Node next;
@@ -90,13 +95,13 @@ public class OfficeBuilding {
         return numFloors;
     }  //количество этажей
 
-    public int getAmountOffices(){  //метод получения общего количества офисов
+    public int getAmountSpace(){  //метод получения общего количества офисов
         int res=0;
         Node temp=head;
         do
         {
             temp = temp.next;
-            res+=temp.oneOfficeFloor.getAmountOffices();
+            res+=temp.oneOfficeFloor.getAmountSpaces();
         } while(temp.next != head.next);
         return res;
     }
@@ -125,7 +130,7 @@ public class OfficeBuilding {
 
     public OfficeFloor[] getMassFloors(){  //метод получения массива этажей
         int i=0;
-        OfficeFloor[] floors = new OfficeFloor[getAmountOffices()];
+        OfficeFloor[] floors = new OfficeFloor[getAmountSpace()];
         Node temp=head;
         do
         {
@@ -137,77 +142,98 @@ public class OfficeBuilding {
     }
 
     public OfficeFloor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
+        if ((number >= getAmountFloors())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         return getNode(number).oneOfficeFloor;
     }
 
-    public void changeFloor(int number, OfficeFloor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+    public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+        if ((number >= getAmountFloors())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         /*Node temp=head;
         for (int i=0;i<number;i++)
             temp = temp.next;
         temp.next.oneOfficeFloor= newFloor;*/
-        getNode(number).oneOfficeFloor=newFloor;
+        getNode(number).oneOfficeFloor=(OfficeFloor)newFloor;
     }
 
-    public Office getOffice(int number){  //метод получения объекта офиса по ее номеру
+    public Office getSpace(int number){  //метод получения объекта офиса по его номеру
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountOffices())
-                return getOneFloor(i).getOneOffice(number);
-            number-=getOneFloor(i).getAmountOffices();
+            if(number<getOneFloor(i).getAmountSpaces())
+                return (Office) getOneFloor(i).getOneSpace(number);
+            number-=getOneFloor(i).getAmountSpaces();
         }
         return null;
     }
 
-    public int getNumberOffice(int number){  //(не нужно)метод получения НОМЕРА офиса по ее номеру в доме
+    public int getNumberSpace(int number){  //(не нужно)метод получения НОМЕРА офиса по его номеру в доме
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountOffices())
+            if(number<getOneFloor(i).getAmountSpaces())
                 return number;
-            number-=getOneFloor(i).getAmountOffices();
+            number-=getOneFloor(i).getAmountSpaces();
         }
         return 0;
     }
 
-    public void changeOffice(int number, Office newOffice){  //изменения объекта офиса по ее номеру в доме и ссылке на объект
+    public void changeSpace(int number, Space newOffice){  //изменения объекта офиса по ее номеру в доме и ссылке на объект
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountOffices()) {
-                getOneFloor(i).changeOffice(number, newOffice);
+            if(number<getOneFloor(i).getAmountSpaces()) {
+                getOneFloor(i).changeSpace(number, newOffice);
                 break;
             }
-            number-=getOneFloor(i).getAmountOffices();
+            number-=getOneFloor(i).getAmountSpaces();
         }
     }
 
-    public void addOffice(int number, Office newOffice){  //метод добавления офиса по будущему номеру и ссылке на объект
+    public void addSpace(int number, Space newOffice){  //метод добавления офиса по будущему номеру и ссылке на объект
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountOffices()) {
-                getOneFloor(i).addOffice(number, newOffice);
+            if(number<getOneFloor(i).getAmountSpaces()) {
+                getOneFloor(i).addSpace(number, newOffice);
                 break;
             }
-            number-=getOneFloor(i).getAmountOffices();
+            number-=getOneFloor(i).getAmountSpaces();
         }
     }
 
-    public void deleteOffice(int number ){  //метод удаления офиса по ее номеру
+    public void removeSpace(int number ){  //метод удаления офиса по ее номеру
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountOffices()) {
-                getOneFloor(i).deleteOffice(number);
+            if(number<getOneFloor(i).getAmountSpaces()) {
+                getOneFloor(i).removeSpace(number);
                 break;
             }
-            number-=getOneFloor(i).getAmountOffices();
+            number-=getOneFloor(i).getAmountSpaces();
         }
     }
 
@@ -225,18 +251,18 @@ public class OfficeBuilding {
         return answer;
     }
 
-    public Office[] getMassSpace(){  //метод получения отсортированного по убыванию площадей массива
+    public Space[] getMassSpace(){  //метод получения отсортированного по убыванию площадей массива
         Node temp=head;
         int office=-1;
-        Office[] sortm= new Office[getAmountOffices()];
+        Space[] sortm= new Office[getAmountSpace()];
             for (int i = 0; i < getAmountFloors(); i++){
                 temp=temp.next;
-                for (int j = 0; j < temp.oneOfficeFloor.getAmountOffices(); j++){
+                for (int j = 0; j < temp.oneOfficeFloor.getAmountSpaces(); j++){
                     office++;
-                    sortm[office]=temp.oneOfficeFloor.getOneOffice(j);}}
-        Arrays.sort(sortm, new sortOffice());
+                    sortm[office]=temp.oneOfficeFloor.getOneSpace(j);}}
+        Arrays.sort((Office[]) sortm, new sortOffice());
 
-        for (int i = 0; i < getAmountOffices(); i++){
+        for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());
             }
 

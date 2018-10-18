@@ -1,9 +1,10 @@
 package buildings;
 
+import interfaces.Space;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Flat implements Serializable {
+public class Flat implements Serializable,Space,Cloneable  {
     Random random =new Random();
 private int rooms=2;
 private double size=random.nextInt(50);

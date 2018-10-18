@@ -1,8 +1,11 @@
 package buildings;
 
+import interfaces.*;
+
+import java.io.File;
 import java.util.Arrays;
 
-public class Dwelling {
+public class Dwelling implements Building {
     private int numFloors;
     private DwellingFloor[] Floors;
     public  Dwelling( int numFloors,int numApartments ) {
@@ -18,10 +21,10 @@ public class Dwelling {
     public int getAmountFloors(){ //метод получения общего количества этажей дома
         return numFloors;
     }
-    public int getAmountFlats(){  //метод получения общего количества квартир дома
+    public int getAmountSpace(){  //метод получения общего количества квартир дома
         int amount=0;
         for (int i = 0; i < numFloors; i++)
-            amount+=Floors[i].getAmountApart();
+            amount+=Floors[i].getAmountSpaces();
         return amount;
     }
 
@@ -47,41 +50,41 @@ public class Dwelling {
         return Floors[number];
     }
 
-    public void changeFloor(int number, DwellingFloor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
-        Floors[number]=newFloor;
+    public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+        Floors[number]=(DwellingFloor)newFloor;
     }
 
-    public Flat getFlat(int number){  //метод получения объекта квартиры по ее номеру в доме
+    public Flat getSpace(int number){  //метод получения объекта квартиры по ее номеру в доме
         int i,flat=0;
         for(i = 0; i < numFloors; i++)
-            if(number>Floors[i].getAmountApart())
-                number-=Floors[i].getAmountApart();
+            if(number>Floors[i].getAmountSpaces())
+                number-=Floors[i].getAmountSpaces();
             else flat=number;
-        return   Floors[i-1].getOneFlat(flat-1);
+        return  (Flat) Floors[i-1].getOneSpace(flat-1);
     }
 
-    public int getNumberFlat(int number){  //метод получения НОМЕРА квартиры по ее номеру в доме
+    public int getNumberSpace(int number){  //метод получения НОМЕРА квартиры по ее номеру в доме
         int i,flat=0;
         for(i = 0; i < numFloors; i++)
-            if(number>Floors[i].getAmountApart())
-                number-=Floors[i].getAmountApart();
+            if(number>Floors[i].getAmountSpaces())
+                number-=Floors[i].getAmountSpaces();
             else flat=number;
         return   flat-1;
     }
 
-    public void changeFlat(int number, Flat newFlat){  //изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
-        int flat= getNumberFlat(number);
-        Floors[flat].changeFlat(flat,newFlat);
+    public void changeSpace(int number, Space newFlat){  //изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
+        int flat= getNumberSpace(number);
+        Floors[flat].changeSpace(flat,newFlat);
     }
 
-    public void addFlat(int number, Flat newFlat){  //метод добавления квартиры в дом по будущему номеру квартиры в доме и ссылке на объект квартиры
-        int flat= getNumberFlat(number);
-        Floors[flat].addFlat(flat, newFlat);
+    public void addSpace(int number, Space newFlat){  //метод добавления квартиры в дом по будущему номеру квартиры в доме и ссылке на объект квартиры
+        int flat= getNumberSpace(number);
+        Floors[flat].addSpace(flat, newFlat);
     }
 
-    public void deleteFlat(int number ){  //метод удаления квартиры по ее номеру в доме
-        int flat= getNumberFlat(number);
-        Floors[flat].deleteFlat(flat);
+    public void removeSpace(int number ){  //метод удаления квартиры по ее номеру в доме
+        int flat= getNumberSpace(number);
+        Floors[flat].removeSpace(flat);
     }
 
     public Flat getBestSpace(){ //метод получения самой большой по площади квартиры дома.
@@ -99,16 +102,16 @@ public class Dwelling {
         return answer;
     }
 
-    public Flat[] getMassSpace(){  //метод получения отсортированного по убыванию площадей массива квартир
+    public Space[] getMassSpace(){  //метод получения отсортированного по убыванию площадей массива квартир
         int flat=-1;
-        Flat[] sortm= new Flat[getAmountFlats()];
+        Space[] sortm= new Flat[getAmountSpace()];
             for (int i = 0; i < numFloors; i++)
-                for (int j = 0; j < Floors[i].getAmountApart(); j++){
+                for (int j = 0; j < Floors[i].getAmountSpaces(); j++){
                     flat++;
-                    sortm[flat]=Floors[i].getOneFlat(j);}
-        Arrays.sort(sortm, new sortFlat());
+                    sortm[flat]=Floors[i].getOneSpace(j);}
+        Arrays.sort((Flat[])sortm, new sortFlat());
 
-        for (int i = 0; i < getAmountFlats(); i++){
+        for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());
             }
 

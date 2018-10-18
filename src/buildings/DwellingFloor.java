@@ -1,6 +1,9 @@
 package buildings;
 
-public class DwellingFloor {
+import interfaces.Floor;
+import interfaces.Space;
+
+public class DwellingFloor implements Floor,Cloneable {
    private int numApartments;
    private Flat[] flat;
     public  DwellingFloor( int numApartments) {  //конструктор
@@ -12,7 +15,7 @@ public class DwellingFloor {
     public  DwellingFloor( Flat[] newFlat) {
             this.flat=newFlat;
     }  //конструктор для массива
-    public int getAmountApart(){  //метод получения количества квартир на этаже
+    public int getAmountSpaces(){  //метод получения количества квартир на этаже
         return numApartments;
     }
     public double getTotalSize(){  //метод получения общей площади квартир этажа
@@ -27,31 +30,31 @@ public class DwellingFloor {
             rooms+=flat[i].getRooms();
         return rooms;
     }
-    public Flat[] getMassFlat(){
+    public Space[] getMassSpace(){
         return flat;
     }  //метод получения массива квартир этажа
 
-    public Flat getOneFlat(int number){  //метод получения объекта квартиры по ее номеру на этаже
+    public Space getOneSpace(int number){  //метод получения объекта квартиры по ее номеру на этаже
 
         return flat[number];
     }
 
-    public void changeFlat(int number,Flat newFlat){  //метод изменения квартиры по ее номеру на этаже и ссылке на новую квартиру
-        flat[number]=newFlat;
+    public void changeSpace(int number, Space newFlat){  //метод изменения квартиры по ее номеру на этаже и ссылке на новую квартиру
+        flat[number]=(Flat) newFlat;
     }
 
-    public void addFlat(int number,Flat newFlat){  //метод добавления новой квартиры на этаже по будущему номеру квартиры
+    public void addSpace(int number, Space newFlat){  //метод добавления новой квартиры на этаже по будущему номеру квартиры
         numApartments++;    //(т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры
         Flat[] flatTwo = new Flat[numApartments];
         for(int i = 0; i < number+1; i++)
             flatTwo[i]=flat[i];
-        flatTwo[number]=newFlat;
+        flatTwo[number]=(Flat) newFlat;
         for(int i = number+1; i < numApartments-1; i++)
             flatTwo[i]=flat[i];
         flat=flatTwo;
     }
 
-    public void deleteFlat(int number){  //метод удаления квартиры по ее номеру на этаже
+    public void removeSpace(int number){  //метод удаления квартиры по ее номеру на этаже
         Flat[] flatTwo = new Flat[numApartments-1];
         for(int i = 0; i < number-1; i++)
             flatTwo[i]=flat[i];

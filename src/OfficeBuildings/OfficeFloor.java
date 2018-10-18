@@ -1,6 +1,10 @@
 package OfficeBuildings;
 
-public class OfficeFloor {
+import exceptions.SpaceIndexOutOfBoundsException;
+import interfaces.Floor;
+import interfaces.Space;
+
+public class OfficeFloor implements Floor,Cloneable {
     //private Office[] offices;
    private int numOffices;
     private static class Node { //узел списка
@@ -82,7 +86,7 @@ public class OfficeFloor {
     }
 
 
-    public int getAmountOffices(){  // метод получения количества офисов на этаже
+    public int getAmountOfficestoo(){  // метод получения количества офисов на этаже
         int res=0;
         Node temp=head;
         do
@@ -93,7 +97,7 @@ public class OfficeFloor {
         return res;
     }
 
-    public int getAmountOfficestoo(){  //количество офисов
+    public int getAmountSpaces(){  //метод получения количества офисов на этаже
         return numOffices;
     }
 
@@ -118,9 +122,9 @@ public class OfficeFloor {
         return rooms;
     }
 
-    public Office[] getMassOf(){ //метод получения массива офисов
+    public Space[] getMassSpace(){ //метод получения массива офисов
         int i=0;
-        Office[] offices = new Office[getAmountOffices()];
+        Office[] offices = new Office[getAmountSpaces()];
         Node temp=head;
         do
         {
@@ -131,28 +135,39 @@ public class OfficeFloor {
         return offices;
     }
 
-    public Office getOneOffice(int number){  //метод получения объекта офиса по ее номеру
+    public Space getOneSpace(int number){  //метод получения объекта офиса по ее номеру
+        if ((number >= getAmountSpaces())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         Node temp=head;
         for (int i=0;i<number;i++)
             temp = temp.next;
         return temp.next.oneOffice;
     }
 
-    public void changeOffice(int number, Office newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
-       /* Node temp=head;
+    public void changeSpace(int number, Space newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
+        if ((number >= getAmountSpaces())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
+        /* Node temp=head;
         for (int i=0;i<number;i++)
             temp = temp.next;
         temp.next.oneOffice= newOffice;*/
-       getNode(number).oneOffice=newOffice;
+       getNode(number).oneOffice=(Office) newOffice;
     }
 
-    public void addOffice(int number, Office newOffice){  //метод добавления нового офиса на этаже по будущему номеру офиса
-        Node temp = new Node();
-        temp.oneOffice = newOffice;
+    public void addSpace(int number, Space newOffice){  //метод добавления нового офиса на этаже по будущему номеру офиса
+        if ((number >= getAmountSpaces())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        } Node temp = new Node();
+        temp.oneOffice =(Office) newOffice;
         addNode(number,temp);
     }
 
-    public void deleteOffice(int number){  //метод удаления офиса по его номеру на этаже
+    public void removeSpace(int number){  //метод удаления офиса по его номеру на этаже
+        if ((number >= getAmountSpaces())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         deleteNode(number);
     }
 
@@ -160,7 +175,7 @@ public class OfficeFloor {
         double maxSize = 0;
         Office maxOffice = null;
         Node temp = head;
-        for (int i = 0; i <= getAmountOffices(); i++) {
+        for (int i = 0; i <= getAmountSpaces(); i++) {
             temp = temp.next;
             if(temp.oneOffice.getSize() > maxSize) {
                 maxSize = temp.oneOffice.getSize();
