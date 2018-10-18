@@ -5,7 +5,7 @@ import exceptions.InvalidRoomsCountException;
 import exceptions.InvalidSpaceAreaException;
 import interfaces.Space;
 
-public class Office implements Serializable,Space,Cloneable {
+public class Office implements Space {
 private int rooms=1;
 private double size=250;
     public Office() {

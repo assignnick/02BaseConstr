@@ -4,8 +4,7 @@ import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;
 import interfaces.Space;
 
-public class OfficeFloor implements Floor,Cloneable {
-    //private Office[] offices;
+public class OfficeFloor implements Floor {
    private int numOffices;
     private static class Node { //узел списка
         Node next;

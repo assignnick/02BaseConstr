@@ -4,7 +4,7 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Flat implements Serializable,Space,Cloneable  {
+public class Flat implements Space  {
     Random random =new Random();
 private int rooms=2;
 private double size=random.nextInt(50);

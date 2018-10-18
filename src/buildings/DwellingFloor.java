@@ -3,7 +3,7 @@ package buildings;
 import interfaces.Floor;
 import interfaces.Space;
 
-public class DwellingFloor implements Floor,Cloneable {
+public class DwellingFloor implements Floor {
    private int numApartments;
    private Flat[] flat;
     public  DwellingFloor( int numApartments) {  //конструктор
