@@ -1,5 +1,6 @@
 package OfficeBuildings;
 
+import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Building;
 import interfaces.Floor;
@@ -143,14 +144,14 @@ public class OfficeBuilding implements Building {
 
     public OfficeFloor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
         if ((number >= getAmountFloors())||(number < 0)) {
-            throw new SpaceIndexOutOfBoundsException();
+            throw new FloorIndexOutOfBoundsException();
         }
         return getNode(number).oneOfficeFloor;
     }
 
     public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
         if ((number >= getAmountFloors())||(number < 0)) {
-            throw new SpaceIndexOutOfBoundsException();
+            throw new FloorIndexOutOfBoundsException();
         }
         /*Node temp=head;
         for (int i=0;i<number;i++)

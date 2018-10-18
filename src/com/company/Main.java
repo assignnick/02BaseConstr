@@ -1,4 +1,5 @@
 package com.company;
+import OfficeBuildings.Office;
 import OfficeBuildings.OfficeBuilding;
 import OfficeBuildings.OfficeFloor;
 import buildings.*;
@@ -14,6 +15,7 @@ class Main {
         System.out.println("");
 
 
+        Office off= new Office(0,0) ;
         OfficeBuilding newOff = new OfficeBuilding(3,new int[]{3,4,5});
 
         int[] a ={3, 4, 5};

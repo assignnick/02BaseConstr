@@ -4,6 +4,8 @@ import interfaces.*;
 
 import java.io.File;
 import java.util.Arrays;
+import exceptions.FloorIndexOutOfBoundsException;
+import exceptions.SpaceIndexOutOfBoundsException;
 
 public class Dwelling implements Building {
     private int numFloors;
@@ -47,14 +49,23 @@ public class Dwelling implements Building {
     }
 
     public DwellingFloor getOneFloor(int number){  //метод получения объекта этажа, по его номеру в доме
+        if ((number >= getAmountFloors())||(number < 0)) {
+            throw new FloorIndexOutOfBoundsException();
+        }
         return Floors[number];
     }
 
     public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+        if ((number >= getAmountFloors())||(number < 0)) {
+            throw new FloorIndexOutOfBoundsException();
+        }
         Floors[number]=(DwellingFloor)newFloor;
     }
 
     public Flat getSpace(int number){  //метод получения объекта квартиры по ее номеру в доме
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int i,flat=0;
         for(i = 0; i < numFloors; i++)
             if(number>Floors[i].getAmountSpaces())
@@ -64,6 +75,9 @@ public class Dwelling implements Building {
     }
 
     public int getNumberSpace(int number){  //метод получения НОМЕРА квартиры по ее номеру в доме
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int i,flat=0;
         for(i = 0; i < numFloors; i++)
             if(number>Floors[i].getAmountSpaces())
@@ -73,16 +87,25 @@ public class Dwelling implements Building {
     }
 
     public void changeSpace(int number, Space newFlat){  //изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int flat= getNumberSpace(number);
         Floors[flat].changeSpace(flat,newFlat);
     }
 
     public void addSpace(int number, Space newFlat){  //метод добавления квартиры в дом по будущему номеру квартиры в доме и ссылке на объект квартиры
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int flat= getNumberSpace(number);
         Floors[flat].addSpace(flat, newFlat);
     }
 
     public void removeSpace(int number ){  //метод удаления квартиры по ее номеру в доме
+        if ((number >= getAmountSpace())||(number < 0)) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int flat= getNumberSpace(number);
         Floors[flat].removeSpace(flat);
     }
