@@ -5,14 +5,14 @@ import interfaces.Space;
 
 public class DwellingFloor implements Floor {
    private int numApartments;
-   private Flat[] flat;
+   private Space[] flat;
     public  DwellingFloor( int numApartments) {  //конструктор
         this.numApartments = numApartments;
-        this.flat = new Flat[numApartments];
+        this.flat = new Space[numApartments];
         for (int i = 0; i < numApartments; i++)
             flat[i] = new Flat();
     }
-    public  DwellingFloor( Flat[] newFlat) {
+    public  DwellingFloor( Space[] newFlat) {
             this.flat=newFlat;
     }  //конструктор для массива
     public int getAmountSpaces(){  //метод получения количества квартир на этаже
@@ -45,7 +45,7 @@ public class DwellingFloor implements Floor {
 
     public void addSpace(int number, Space newFlat){  //метод добавления новой квартиры на этаже по будущему номеру квартиры
         numApartments++;    //(т.е. в параметрах указывается номер, который должны иметь квартира после вставки) и ссылке на объект квартиры
-        Flat[] flatTwo = new Flat[numApartments];
+        Space[] flatTwo = new Space[numApartments];
         for(int i = 0; i < number+1; i++)
             flatTwo[i]=flat[i];
         flatTwo[number]=(Flat) newFlat;
@@ -55,7 +55,7 @@ public class DwellingFloor implements Floor {
     }
 
     public void removeSpace(int number){  //метод удаления квартиры по ее номеру на этаже
-        Flat[] flatTwo = new Flat[numApartments-1];
+        Space[] flatTwo = new Space[numApartments-1];
         for(int i = 0; i < number-1; i++)
             flatTwo[i]=flat[i];
         for(int i = number+1; i < numApartments; i++)
@@ -64,7 +64,7 @@ public class DwellingFloor implements Floor {
         numApartments--;
     }
 
-    public Flat getBestSpace(){ //метод получения самой большой по площади квартиры этажа.
+    public Space getBestSpace(){ //метод получения самой большой по площади квартиры этажа.
         double size=0,tmpSize;
         int number=0;
         for(int i = 0; i < numApartments; i++)

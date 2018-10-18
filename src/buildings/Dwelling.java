@@ -9,14 +9,14 @@ import exceptions.SpaceIndexOutOfBoundsException;
 
 public class Dwelling implements Building {
     private int numFloors;
-    private DwellingFloor[] Floors;
+    private Floor[] Floors;
     public  Dwelling( int numFloors,int numApartments ) {
         this.numFloors = numFloors;
-        this.Floors = new DwellingFloor[numFloors];
+        this.Floors = new Floor[numFloors];
         for (int i = 0; i < numFloors; i++)
             Floors[i] = new DwellingFloor(numApartments);
     }
-    public  Dwelling( DwellingFloor[] Floors) {
+    public  Dwelling(Floor[] Floors) {
         this.Floors=Floors;
     }
 
@@ -44,11 +44,11 @@ public class Dwelling implements Building {
         return rooms;
     }
 
-    public DwellingFloor[] getMassFloors(){  //метод получения массива этажей жилого дома
+    public Floor[] getMassFloors(){  //метод получения массива этажей жилого дома
         return Floors;
     }
 
-    public DwellingFloor getOneFloor(int number){  //метод получения объекта этажа, по его номеру в доме
+    public Floor getOneFloor(int number){  //метод получения объекта этажа, по его номеру в доме
         if ((number >= getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
@@ -62,7 +62,7 @@ public class Dwelling implements Building {
         Floors[number]=(DwellingFloor)newFloor;
     }
 
-    public Flat getSpace(int number){  //метод получения объекта квартиры по ее номеру в доме
+    public Space getSpace(int number){  //метод получения объекта квартиры по ее номеру в доме
         if ((number >= getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
@@ -110,9 +110,9 @@ public class Dwelling implements Building {
         Floors[flat].removeSpace(flat);
     }
 
-    public Flat getBestSpace(){ //метод получения самой большой по площади квартиры дома.
+    public Space getBestSpace(){ //метод получения самой большой по площади квартиры дома.
         double size=0,sizeOnFl;
-        Flat temp,answer=new Flat();
+        Space temp,answer=new Flat();
         for(int i = 0; i < numFloors; i++)
         {
             temp=Floors[i].getBestSpace();
@@ -127,12 +127,12 @@ public class Dwelling implements Building {
 
     public Space[] getMassSpace(){  //метод получения отсортированного по убыванию площадей массива квартир
         int flat=-1;
-        Space[] sortm= new Flat[getAmountSpace()];
+        Space[] sortm= new Space[getAmountSpace()];
             for (int i = 0; i < numFloors; i++)
                 for (int j = 0; j < Floors[i].getAmountSpaces(); j++){
                     flat++;
                     sortm[flat]=Floors[i].getOneSpace(j);}
-        Arrays.sort((Flat[])sortm, new sortFlat());
+        Arrays.sort((Space[])sortm, new sortFlat());
 
         for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());

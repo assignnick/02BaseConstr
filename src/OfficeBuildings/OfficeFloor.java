@@ -8,7 +8,7 @@ public class OfficeFloor implements Floor {
    private int numOffices;
     private static class Node { //узел списка
         Node next;
-        Office oneOffice;
+        Space oneOffice;
     }
     private Node head;
 
@@ -29,7 +29,7 @@ public class OfficeFloor implements Floor {
         }
         theHead.next = head.next;
     }
-    public OfficeFloor(Office[] newOfFlat) {//конструктор для массива
+    public OfficeFloor(Space[] newOfFlat) {//конструктор для массива
         this();
         numOffices=newOfFlat.length;
         Node theHead = head;
@@ -42,7 +42,7 @@ public class OfficeFloor implements Floor {
         theHead.next = head.next;
     }
 
-    void addFront(Office newOf, int number) { //(не нужно)
+    void addFront(Space newOf, int number) { //(не нужно)
         Node a = new Node();
         a.oneOffice = newOf;
         for (int i = 0; i < number; i++) {
@@ -123,7 +123,7 @@ public class OfficeFloor implements Floor {
 
     public Space[] getMassSpace(){ //метод получения массива офисов
         int i=0;
-        Office[] offices = new Office[getAmountSpaces()];
+        Space[] offices = new Space[getAmountSpaces()];
         Node temp=head;
         do
         {
@@ -170,9 +170,9 @@ public class OfficeFloor implements Floor {
         deleteNode(number);
     }
 
-    public Office getBestSpace(){ //получения самого большого по площади офиса этажа
+    public Space getBestSpace(){ //получения самого большого по площади офиса этажа
         double maxSize = 0;
-        Office maxOffice = null;
+        Space maxOffice = null;
         Node temp = head;
         for (int i = 0; i <= getAmountSpaces(); i++) {
             temp = temp.next;

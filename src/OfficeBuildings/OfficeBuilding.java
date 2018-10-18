@@ -15,7 +15,7 @@ public class OfficeBuilding implements Building {
     private static class Node { //узел списка
         Node next;
         Node prev;
-        OfficeFloor oneOfficeFloor;
+        Floor oneOfficeFloor;
     }
     private Node head;
 
@@ -38,11 +38,11 @@ public class OfficeBuilding implements Building {
         temp.next = head.next;
         head.next.prev = temp;
     }
-    public OfficeBuilding(OfficeFloor[] Floors) {  //Конструктор массива этажей офисного здания
+    public OfficeBuilding(Floor[] Floors) {  //Конструктор массива этажей офисного здания
         this();
         numFloors=Floors.length;
         Node temp = head;
-        for (OfficeFloor Floor : Floors) {
+        for (Floor Floor : Floors) {
             Node x = new Node();
             temp.next = x;
             x.prev = temp;
@@ -129,9 +129,9 @@ public class OfficeBuilding implements Building {
         return rooms;
     }
 
-    public OfficeFloor[] getMassFloors(){  //метод получения массива этажей
+    public Floor[] getMassFloors(){  //метод получения массива этажей
         int i=0;
-        OfficeFloor[] floors = new OfficeFloor[getAmountSpace()];
+        Floor[] floors = new Floor[getAmountSpace()];
         Node temp=head;
         do
         {
@@ -142,7 +142,7 @@ public class OfficeBuilding implements Building {
         return floors;
     }
 
-    public OfficeFloor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
+    public Floor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
         if ((number >= getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
@@ -157,10 +157,10 @@ public class OfficeBuilding implements Building {
         for (int i=0;i<number;i++)
             temp = temp.next;
         temp.next.oneOfficeFloor= newFloor;*/
-        getNode(number).oneOfficeFloor=(OfficeFloor)newFloor;
+        getNode(number).oneOfficeFloor=newFloor;
     }
 
-    public Office getSpace(int number){  //метод получения объекта офиса по его номеру
+    public Space getSpace(int number){  //метод получения объекта офиса по его номеру
         if ((number >= getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
@@ -169,7 +169,7 @@ public class OfficeBuilding implements Building {
         {
             temp=temp.next;
             if(number<getOneFloor(i).getAmountSpaces())
-                return (Office) getOneFloor(i).getOneSpace(number);
+                return getOneFloor(i).getOneSpace(number);
             number-=getOneFloor(i).getAmountSpaces();
         }
         return null;
@@ -238,8 +238,8 @@ public class OfficeBuilding implements Building {
         }
     }
 
-    public Office getBestSpace(){ //метод получения самого большого оффиса
-        Office answer=new Office(0,0);
+    public Space getBestSpace(){ //метод получения самого большого оффиса
+        Space answer=new Office(0,0);
         Node temp=head;
         for (int i=0;i<getAmountFloors();++i)
         {

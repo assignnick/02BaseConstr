@@ -22,14 +22,17 @@ class Main {
         OfficeFloor newfloor = new OfficeFloor(1);
         System.out.println("newfloor "+newfloor.getAmountSpaces());
 
-
-        /*for (int i=0;i<3;i++)
+/*
+        for (int i=0;i<3;i++)
             for (int j=0;j<newOffice.getOneFloor(i).getAmountSpaces();j++)
-                newOffice.getOneFloor(i).getOneSpace(j).setSize(random.nextInt(400)+1);
-                System.out.println("newOffice 0 "+newOffice.getOneFloor(0).getAmountSpaces());
-                */
-        System.out.println(newOffice.getMassSpace());
+            newOffice.getOneFloor(i).getOneSpace(j).setSize(random.nextInt(400)+1);
+        System.out.println("newOffice 0 "+newOffice.getOneFloor(0).getOneSpace(0).getSize());*/
 
+        System.out.println(newOffice.getOneFloor(0));
+
+        System.out.println(newOffice.getOneFloor(1));
+        System.out.println(newOffice.getOneFloor(2));
+        System.out.println(newOffice.getOneFloor(3));
 
     }
 }
