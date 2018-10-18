@@ -41,13 +41,12 @@ public class OfficeFloor {
         theHead.next = head.next;
     }
 
-    void addFront(Office newOf, int number) { //добавить спереди
+    void addFront(Office newOf, int number) { //(не нужно)
         Node a = new Node();
         a.oneOffice = newOf;
         for (int i = 0; i < number; i++) {
             a = a.next;
         }
-
         if(head == null)
         {
             head = a;
@@ -67,110 +66,110 @@ public class OfficeFloor {
         return temp;
     }
 
-    void addBack(Office newOf) {  //добавление в конец списка
-        Node a = new Node();
-        a.oneOffice = newOf;
-        if (tail == null)
+    private void addNode(int index, Node newNode) {  //приватный метод добавления узла в список по номеру
+        Node a = head;
+        for (int i = 0; i < index; i++) {
+            a = a.next;
+        }
+        newNode.next = a.next;
+        a.next = newNode;
+    }
+
+
+    private void deleteNode(int index) {  //приватный метод удаления узла из списка по его номеру
+        Node a = head;
+        for (int i = 0; i < index; i++) {
+            a = a.next;
+        }
+        a.next = a.next.next;
+    }
+
+
+    public int getAmountOffices(){  // метод получения количества офисов на этаже
+        int res=0;
+        Node temp=head;
+        do
         {
-            head = a;
-            tail = a;
-        } else {
-            tail.next = a;
-            tail = a;
-        }
+            temp = temp.next;
+            res++;
+        } while(temp.next != head.next);
+        return res;
     }
 
-    void delEl(Office delOf)          //удаление элемента
-    {
-        if(head == null)        //если список пуст -
-            return;             //ничего не делаем
-
-        if (head == tail) {     //если список состоит из одного элемента
-            head = null;        //очищаем указатели начала и конца
-            tail = null;
-            return;             //и выходим
-        }
-
-        if (head.oneOffice == delOf) {    //если первый элемент - тот, что нам нужен
-            head = head.next;       //переключаем указатель начала на второй элемент
-            return;                 //и выходим
-        }
-
-        Node t = head;       //иначе начинаем искать
-        while (t.next != null) {    //пока следующий элемент существует
-            if (t.next.oneOffice == delOf) {  //проверяем следующий элемент
-                if(tail == t.next)      //если он последний
-                {
-                    tail = t;           //то переключаем указатель на последний элемент на текущий
-                }
-                t.next = t.next.next;   //найденный элемент выкидываем
-                return;                 //и выходим
-            }
-            t = t.next;                //иначе ищем дальше
-        }
-    }
-
-    public int getAmountOffices(){  //количество офисов
+    public int getAmountOfficestoo(){  //количество офисов
         return numOffices;
     }
 
-    public double getTotalSize(){  //метод получения общей площади
+    public double getTotalSize(){  //метод получения общей площади помещений этажа
         double sizer=0;
-        for (int i = 0; i < numOffices; i++)
-            sizer+= offices[i].getSize();
+        Node temp=head;
+        do
+        {
+            temp = temp.next;
+            sizer+=temp.oneOffice.getSize();
+        } while(temp.next != head.next);
         return sizer;
     }
     public int getTotalRooms(){  //метод получения общего количества комнат
         int rooms=0;
-        for (int i = 0; i < numOffices; i++)
-            rooms+= offices[i].getRooms();
+        Node temp=head;
+        do
+        {
+            temp = temp.next;
+            rooms+=temp.oneOffice.getRooms();
+        } while(temp.next != head.next);
         return rooms;
     }
-    public Office[] getMassOf(){
-        return offices;
-    }  //метод получения массива офисов
 
-    public Office getOneOffice(int number){  //метод получения объекта офиса по ее номеру
-        return offices[number];
+    public Office[] getMassOf(){ //метод получения массива офисов
+        int i=0;
+        Office[] offices = new Office[getAmountOffices()];
+        Node temp=head;
+        do
+        {
+            temp = temp.next;
+            offices[i]= temp.oneOffice;
+            i++;
+        } while(temp.next != head.next);
+        return offices;
     }
 
-    public void changeOffice(int number, Office newFlat){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
-        offices[number]=newFlat;
+    public Office getOneOffice(int number){  //метод получения объекта офиса по ее номеру
+        Node temp=head;
+        for (int i=0;i<number;i++)
+            temp = temp.next;
+        return temp.next.oneOffice;
+    }
+
+    public void changeOffice(int number, Office newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
+        Node temp=head;
+        for (int i=0;i<number;i++)
+            temp = temp.next;
+        temp.next.oneOffice= newOffice;
     }
 
     public void addOffice(int number, Office newOffice){  //метод добавления нового офиса на этаже по будущему номеру офиса
-        numOffices++;    //(т.е. в параметрах указывается номер, который должны иметь офис после вставки) и ссылке на объект офиса
-        Office[] officeTwo = new Office[numOffices];
-        for(int i = 0; i < number+1; i++)
-            officeTwo[i]= offices[i];
-        officeTwo[number]=newOffice;
-        for(int i = number+1; i < numOffices -1; i++)
-            officeTwo[i]= offices[i];
-        offices =officeTwo;
+        Node temp = new Node();
+        temp.oneOffice = newOffice;
+        addNode(number,temp);
     }
 
-    public void deleteOffice(int number){  //метод удаления квартиры по ее номеру на этаже
-        Office[] flatTwo = new Office[numOffices -1];
-        for(int i = 0; i < number-1; i++)
-            flatTwo[i]= offices[i];
-        for(int i = number+1; i < numOffices; i++)
-            flatTwo[i]= offices[i];
-        offices =flatTwo;
-        numOffices--;
+    public void deleteOffice(int number){  //метод удаления офиса по его номеру на этаже
+        deleteNode(number);
     }
 
-    public Office getBestSpace(){ //метод получения самой большой по площади квартиры этажа.
-        double size=0,tmpSize;
-        int number=0;
-        for(int i = 0; i < numOffices; i++)
-        {
-            tmpSize= offices[i].getSize();
-            if (tmpSize>size) {
-                size = offices[i].getSize();
-                number=i;
+    public Office getBestSpace(){ //получения самого большого по площади офиса этажа
+        double maxSize = 0;
+        Office maxOffice = null;
+        Node temp = head;
+        for (int i = 0; i <= getAmountOffices(); i++) {
+            temp = temp.next;
+            if(temp.oneOffice.getSize() > maxSize) {
+                maxSize = temp.oneOffice.getSize();
+                maxOffice = temp.oneOffice;
             }
         }
-        return offices[number];
+        return maxOffice;
     }
 
 }
