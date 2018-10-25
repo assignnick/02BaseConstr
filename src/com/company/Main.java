@@ -18,6 +18,7 @@ class Main {
 
         int[] a ={3, 4, 5};
         OfficeBuilding newOffice = new OfficeBuilding(a.length, a);
+        Dwelling newDDD = new Dwelling(a.length, 5);
 
         OfficeFloor newfloor = new OfficeFloor(1);
         System.out.println("newfloor "+newfloor.getAmountSpaces());
@@ -28,10 +29,18 @@ class Main {
             newOffice.getOneFloor(i).getOneSpace(j).setSize(random.nextInt(400)+1);
         System.out.println("newOffice 0 "+newOffice.getOneFloor(0).getOneSpace(0).getSize());*/
 
+        System.out.println(newDDD.getOneFloor(0));
+
+        System.out.println(newDDD.getOneFloor(1));
+        System.out.println(newDDD.getOneFloor(2));
+
+
         System.out.println(newOffice.getOneFloor(0));
 
         System.out.println(newOffice.getOneFloor(1));
         System.out.println(newOffice.getOneFloor(2));
+
+        System.out.println(42^12);
 
     }
 }

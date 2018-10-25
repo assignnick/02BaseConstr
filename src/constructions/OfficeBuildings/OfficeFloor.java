@@ -4,7 +4,9 @@ import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;
 import interfaces.Space;
 
-public class OfficeFloor implements Floor {
+import java.io.Serializable;
+
+public class OfficeFloor implements Floor,Serializable,Cloneable {
    private int numOffices;
     private static class Node { //узел списка
         Node next;
@@ -183,5 +185,53 @@ public class OfficeFloor implements Floor {
         }
         return maxOffice;
     }
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("OfficeFloor ");
+        str.append(numOffices);
+        Node temp=head;
+        for (int i=0;i<numOffices;i++) {
+            temp = temp.next;
 
+            str.append(", ");
+            str.append(temp.oneOffice.toString());
+        }
+        return str.toString();
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof OfficeFloor))
+            return false;
+        OfficeFloor other = (OfficeFloor) obj;
+        if (!head.equals(other.head))
+            return false;
+        return true;
+    }
+
+    public int hashCode() {
+        int hashf = 31;
+        int res = 1;
+        Node temp=head;
+        for (int i=0;i<numOffices;i++) {
+            temp = temp.next;
+            res += hashf * res * temp.oneOffice.hashCode();
+        }
+        return res;
+    }
+    public Object clone() {
+        Floor result = null;
+        try {
+            result = (Floor) super.clone();
+            for(int i = 0; i < result.getAmountSpaces(); i++) {
+                result.changeSpace(i, (Space)result.getOneSpace(i).clone());
+            }
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+        return result;
+    }
 }

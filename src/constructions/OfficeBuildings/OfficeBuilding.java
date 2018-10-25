@@ -7,11 +7,12 @@ import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 
 
-public class OfficeBuilding implements Building {
+public class OfficeBuilding implements Building,Serializable,Cloneable {
     private int numFloors;
     private static class Node { //узел списка
         Node next;
@@ -270,4 +271,56 @@ public class OfficeBuilding implements Building {
 
         return sortm;
         }
+
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("OfficeBuilding ");
+        str.append(numFloors);
+        Node temp = head;
+        for (int i = 0; i < numFloors; i++) {
+            temp = temp.next;
+            str.append(", ");
+            str.append(temp.oneOfficeFloor.toString());
+        }
+        return str.toString();
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof OfficeBuilding))
+            return false;
+        OfficeBuilding other = (OfficeBuilding) obj;
+        if (!head.equals(other.head))
+            return false;
+        return true;
+    }
+
+    public int hashCode() {
+        int hashf = 31;
+        int res = 1;
+        Node temp = head;
+        for (int i = 0; i < numFloors; i++) {
+            temp = temp.next;
+            res += hashf * res * temp.oneOfficeFloor.hashCode();
+        }
+        return res;
+    }
+    public Object clone() {
+        Building result = null;
+        try {
+            result = (Building) super.clone();
+            for (int i = 0; i < result.getAmountFloors(); i++) {
+                result.changeFloor(i, (Floor) result.getOneFloor(i).clone());
+                for (int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
+                    result.getOneFloor(i).changeSpace(j, (Space) result.getSpace(j).clone());
+                }
+            }
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+        return result;
+    }
 }

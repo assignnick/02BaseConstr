@@ -14,5 +14,7 @@ public interface  Building {
     public void removeSpace(int index);//удаления помещения из здания
     public Space getBestSpace();//получения лучшего помещения в здании
     public Space[] getMassSpace();//получения отсортированного массива всех помещений
-
+    public String toString();
+    public int hashCode();
+    public Object clone();
 }
