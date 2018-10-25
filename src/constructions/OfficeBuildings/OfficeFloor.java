@@ -1,4 +1,4 @@
-package OfficeBuildings;
+package constructions.OfficeBuildings;
 
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;

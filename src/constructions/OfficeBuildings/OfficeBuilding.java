@@ -1,5 +1,6 @@
-package OfficeBuildings;
+package constructions.OfficeBuildings;
 
+import constructions.buildings.sortSpace;
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Building;
@@ -261,7 +262,7 @@ public class OfficeBuilding implements Building {
                 for (int j = 0; j < temp.oneOfficeFloor.getAmountSpaces(); j++){
                     office++;
                     sortm[office]=temp.oneOfficeFloor.getOneSpace(j);}}
-        Arrays.sort((Office[]) sortm, new sortOffice());
+        Arrays.sort( sortm, new sortSpace());
 
         for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());

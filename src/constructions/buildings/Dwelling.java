@@ -1,8 +1,7 @@
-package buildings;
+package constructions.buildings;
 
 import interfaces.*;
 
-import java.io.File;
 import java.util.Arrays;
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
@@ -132,7 +131,7 @@ public class Dwelling implements Building {
                 for (int j = 0; j < Floors[i].getAmountSpaces(); j++){
                     flat++;
                     sortm[flat]=Floors[i].getOneSpace(j);}
-        Arrays.sort((Space[])sortm, new sortFlat());
+        Arrays.sort((Space[])sortm, new sortSpace());
 
         for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());
