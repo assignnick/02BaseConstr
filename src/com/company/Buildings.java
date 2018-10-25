@@ -52,17 +52,18 @@ public class Buildings {
         Space space;
         int maxF = byteIn.readInt();
         Floor[] floors = new Floor[maxF];
-        Space[] spaces;
-//        for (int i = 0; i < maxF; i++) {
-//            floor = building.getOneFloor(i);
-//            byteIn.writeInt(floor.getAmountSpaces());
-//            for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
-//                space = floor.getOneSpace(j);
-//                byteIn.writeInt(space.getRooms());
-//                byteIn.writeDouble(space.getSize());
-//            }
-//        }
-//        byteIn.close();
+
+        int rooms; double size;
+        for (int i = 0; i < maxF; i++) {
+            int maxS = byteIn.readInt();
+            Space[] spaces= new Space[maxS];
+            for (int j = 0; j < maxS; j++) {
+                rooms=byteIn.readInt();
+                size=byteIn.readDouble();
+//                Space space=new s
+            }
+        }
+        byteIn.close();
         return null;
 //
 //
