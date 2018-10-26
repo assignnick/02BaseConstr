@@ -223,11 +223,12 @@ public class OfficeFloor implements Floor,Serializable,Cloneable {
         return res;
     }
     public Object clone() {
-        Floor result = null;
+        OfficeFloor result = null;
         try {
-            result = (Floor) super.clone();
+            result = (OfficeFloor) super.clone();
+            result.head = head;
             for(int i = 0; i < result.getAmountSpaces(); i++) {
-                result.changeSpace(i, (Space)result.getOneSpace(i).clone());
+                result.addSpace(i, (Space)result.getOneSpace(i).clone());
             }
         } catch (CloneNotSupportedException e) {
             throw new InternalError();

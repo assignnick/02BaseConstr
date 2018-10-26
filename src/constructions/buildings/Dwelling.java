@@ -175,6 +175,7 @@ public class Dwelling implements Building,Serializable,Cloneable {
         Building result = null;
         try {
             result = (Building) super.clone();
+            // clone of attay
             for(int i = 0; i < result.getAmountFloors(); i++) {
                 result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
                 for(int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {

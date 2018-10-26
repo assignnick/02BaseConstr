@@ -50,7 +50,7 @@ public class Buildings {
                byteOut.writeDouble(space.getSize());
            }
        }
-       byteOut.close();
+//       byteOut.close();
    }
 
     //чтения данных о здании из байтового потока
@@ -84,7 +84,7 @@ public class Buildings {
             bild = new Dwelling(floors);
         else
             bild = new OfficeBuilding(floors);
-        byteIn.close();
+//        byteIn.close();
         return bild;
     }
 
@@ -107,10 +107,11 @@ public class Buildings {
                 print.print(" ");
             }
         }
-        print.close();
+//        print.close();
 
     }
 	//чтения здания из символьного потока
+    //scanner
     public static Building readBuilding (String str,Reader in) throws IOException{
         StreamTokenizer st = new StreamTokenizer(in);
         Floor floor;
@@ -146,12 +147,11 @@ public class Buildings {
     }
 
 
-
     //сериализации здания в байтовый поток
     public static void serializeBuilding (Building building, ObjectOutputStream out) throws IOException{
      out = new ObjectOutputStream(new FileOutputStream("out.bin"));
      out.writeObject(building);
-     out.close();
+//     out.close();
     }
     //десериализации здания из байтового потока
     public static Building deserializeBuilding(String str, ObjectInputStream in) {
@@ -162,7 +162,7 @@ public class Buildings {
                 build = (OfficeBuilding) in.readObject();
             else
                 build = (Dwelling) in.readObject();
-            in.close();
+//            in.close();
             return build;
         } catch (IOException e) {
             System.out.println("Some error occurred!");
@@ -172,49 +172,34 @@ public class Buildings {
         return null;
     }
 
-    public static void writeBuildingFormat(String str,Building building, Writer out) {
-        StringBuilder sb = new StringBuilder();
-        Formatter formatter = new Formatter(sb);
+    public static void writeBuildingFormat(Writer str,Building building) {
+//        StringBuilder sb = new StringBuilder();
+        Formatter formatter = new Formatter(str);
         if (str.equals("Office"))
-            sb.append(formatter.format("Офисное здание"));
+            formatter.format("Офисное здание\n");
         else
-            sb.append(formatter.format("Жилое здание"));
+            formatter.format("Жилое здание\n");
         Floor floor;
         Space space;
         int max = building.getAmountFloors();
-        sb.append(formatter.format("Количество этажей %s\n",max));
+        int rooms; double size;
+        formatter.format("Количество этажей %s\n",max);
         for (int i = 0; i < max; i++) {
             floor = building.getOneFloor(i);
             int maxS=floor.getAmountSpaces();
-            sb.append(formatter.format("Этаж %s(%s). Квартир на этаже %s\n",i+1,i,maxS));
+            formatter.format("Этаж %s(%s). Квартир на этаже %s\n",i+1,i,maxS);
             int number=0;
             for (int j = 0; j < maxS; j++) {
                 number++;
-                sb.append(formatter.format("Квартира №%s (%s) ",number,j));
+                formatter.format("Квартира №%s(%s) ",number,j);
                 space = floor.getOneSpace(j);
-                sb.append(formatter.format("Комнат: %s, Площадь: %f\n",space.getRooms(),space.getSize()));
+                rooms=space.getRooms();
+                size=space.getSize();
+                formatter.format("Комнат: %s, Площадь: %.2f\n",rooms,size);
             }
+
         }
-
- /*       PrintWriter print = new PrintWriter(out);
-
-        print.print(building.getAmountFloors());
-        print.print(" ");
-        for (int i = 0, max = building.getAmountFloors(); i < max; i++) {
-            floor = building.getOneFloor(i);
-            print.print(floor.getAmountSpaces());
-            print.print(" ");
-            for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
-                space = floor.getOneSpace(j);
-                print.print(space.getRooms());
-                print.print(" ");
-                print.print(space.getSize());
-                print.print(" ");
-            }
-        }
-        print.close();*/
-
-
+//        System.out.println(sb.toString());
     }
 }
 

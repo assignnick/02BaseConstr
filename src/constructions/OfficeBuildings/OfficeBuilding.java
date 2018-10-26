@@ -30,7 +30,8 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
         this();
         this.numFloors=numFloors;
         Node temp = head;
-        for (int i = 0; i < numFloors; i++) {
+        temp.oneOfficeFloor= new OfficeFloor(numOffices[0]);
+        for (int i = 1; i < numFloors; i++) {
             Node x = new Node();
             x.oneOfficeFloor = new OfficeFloor(numOffices[i]);
             temp.next = x;
@@ -145,14 +146,14 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public Floor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
-        if ((number >= getAmountFloors())||(number < 0)) {
+        if ((number > getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
         return getNode(number).oneOfficeFloor;
     }
 
     public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
-        if ((number >= getAmountFloors())||(number < 0)) {
+        if ((number > getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
         /*Node temp=head;
@@ -163,7 +164,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public Space getSpace(int number){  //метод получения объекта офиса по его номеру
-        if ((number >= getAmountSpace())||(number < 0)) {
+        if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         Node temp=head;
@@ -178,7 +179,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public int getNumberSpace(int number){  //(не нужно)метод получения НОМЕРА офиса по его номеру в доме
-        if ((number >= getAmountSpace())||(number < 0)) {
+        if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         Node temp=head;
@@ -193,7 +194,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public void changeSpace(int number, Space newOffice){  //изменения объекта офиса по ее номеру в доме и ссылке на объект
-        if ((number >= getAmountSpace())||(number < 0)) {
+        if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         Node temp=head;
@@ -209,7 +210,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public void addSpace(int number, Space newOffice){  //метод добавления офиса по будущему номеру и ссылке на объект
-        if ((number >= getAmountSpace())||(number < 0)) {
+        if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         Node temp=head;
@@ -225,7 +226,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
     }
 
     public void removeSpace(int number ){  //метод удаления офиса по ее номеру
-        if ((number >= getAmountSpace())||(number < 0)) {
+        if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         Node temp=head;

@@ -112,9 +112,10 @@ public class DwellingFloor implements Floor,Serializable,Cloneable {
     }
 
     public Object clone() {
-        Floor result = null;
+        DwellingFloor result = null;
         try {
-            result = (Floor) super.clone();
+            result = (DwellingFloor) super.clone();
+            result.flats = this.flats.clone();
             for(int i = 0; i < result.getAmountSpaces(); i++) {
                 result.changeSpace(i, (Space)result.getOneSpace(i).clone());
             }

@@ -4,24 +4,25 @@ import constructions.OfficeBuildings.OfficeBuilding;
 import constructions.OfficeBuildings.OfficeFloor;
 import constructions.buildings.Dwelling;
 
+import java.io.*;
 import java.util.Random;
 
 class Main {
     public static void main(String[] s) {
-        System.out.println(Double.compare(1.,0.));
-        Random random =new Random();
-        Dwelling Dom = new Dwelling(5,4);
+        System.out.println(Double.compare(1., 0.));
+        Random random = new Random();
+        Dwelling Dom = new Dwelling(5, 4);
         System.out.println(Dom.getMassSpace());
         System.out.println("");
 
-        OfficeBuilding newOff = new OfficeBuilding(3,new int[]{3,4,5});
+        OfficeBuilding newOff = new OfficeBuilding(3, new int[]{3, 4, 5});
 
-        int[] a ={3, 4, 5};
+        int[] a = {3, 4, 5};
         OfficeBuilding newOffice = new OfficeBuilding(a.length, a);
         Dwelling newDDD = new Dwelling(a.length, 5);
 
         OfficeFloor newfloor = new OfficeFloor(1);
-        System.out.println("newfloor "+newfloor.getAmountSpaces());
+        System.out.println("newfloor " + newfloor.getAmountSpaces());
 
 /*
         for (int i=0;i<3;i++)
@@ -34,13 +35,18 @@ class Main {
         System.out.println(newDDD.getOneFloor(1));
         System.out.println(newDDD.getOneFloor(2));
 
+        OfficeFloor newOfficeFl = new OfficeFloor(a.length);
+        System.out.println("fg " + newOfficeFl.getOneSpace(0));
+        System.out.println("fg " + newOfficeFl.getOneSpace(1));
+        System.out.println("fg " + newOfficeFl.getOneSpace(2));
 
         System.out.println(newOffice.getOneFloor(0));
 
         System.out.println(newOffice.getOneFloor(1));
         System.out.println(newOffice.getOneFloor(2));
 
-        System.out.println(42^12);
+
+        Buildings.writeBuildingFormat("Office", newDDD);
 
     }
 }
@@ -67,7 +73,13 @@ class Main {
 //        Добавьте метод текстовой записи
 //public static void writeBuildingFormat (Building building, Writer out)
 //        для зданий класса Buildings, использующий возможности форматированного вывода.
-//        Перегрузите метод текстового чтения зданий класса Buildings таким образом, чтобы он использовал возможности форматированного ввода и вывода и имел аргумент типа Scanner.
+//        Перегрузите метод текстового чтения зданий класса Buildings таким образом,
+// чтобы он использовал возможности форматированного ввода и вывода и имел аргумент типа Scanner.
 //
 //
 //        Примечание: При проверке работы методов в методе main() используйте блок try с ресурсом.
+
+/*
+*
+*
+* */
