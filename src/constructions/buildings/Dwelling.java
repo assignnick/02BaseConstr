@@ -172,12 +172,16 @@ public class Dwelling implements Building,Serializable,Cloneable {
         return res;
     }
     public Object clone() {
-        Building result = null;
+        Dwelling result = null;
         try {
-            result = (Building) super.clone();
+            result = (Dwelling) super.clone();
+            result.floors=this.floors.clone();
+
             // clone of attay
             for(int i = 0; i < result.getAmountFloors(); i++) {
-                result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
+                result.floors[i] = (Floor)result.getOneFloor(i).clone();
+               // result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
+                
                 for(int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
                     result.getOneFloor(i).changeSpace(j, (Space)result.getSpace(j).clone());
                 }
