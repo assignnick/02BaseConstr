@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.Iterator;
 
-public interface Floor {
+public interface Floor extends Comparable<Floor> {
     public int getAmountSpaces();//получения количества помещений на этаже
     public double getTotalSize();//получения общей площади помещений на этаже
     public int getTotalRooms();//получения общего количества комнат в помещениях этажа

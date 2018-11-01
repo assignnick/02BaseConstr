@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface Space {
+public interface Space extends Comparable<Space>{
     public int getRooms();
     public void setRooms(int rooms);
     public double getSize();

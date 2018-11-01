@@ -1,13 +1,16 @@
 package buildings.dwelling;
 
+import buildings.sortSpace;
 import interfaces.*;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
+
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 
-public class Dwelling implements Building,Serializable,Cloneable {
+public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor> {
     private int numFloors;
     private Floor[] floors;
     public  Dwelling( int numFloors,int numApartments ) {
@@ -191,5 +194,27 @@ public class Dwelling implements Building,Serializable,Cloneable {
             throw new InternalError();
         }
         return result;
+    }
+    public Iterator<Floor> iterator() {
+        Iterator<Floor> it = new Iterator<>() {
+
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < numFloors && floors[currentIndex] != null;
+            }
+
+            @Override
+            public Floor next() {
+                return floors[currentIndex++];
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
     }
 }

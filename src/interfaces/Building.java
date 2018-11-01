@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.Iterator;
+
 public interface  Building {
     public int getAmountFloors();//получения количества этажей в здании
     public int getAmountSpace();//получения количества помещений в здании
@@ -17,4 +19,5 @@ public interface  Building {
     public String toString();
     public int hashCode();
     public Object clone();
+    public Iterator iterator();
 }

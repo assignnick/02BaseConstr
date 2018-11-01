@@ -1,11 +1,6 @@
 package buildings.hotel;
 
 import buildings.dwelling.Dwelling;
-import buildings.dwelling.DwellingFloor;
-import buildings.dwelling.Flat;
-import buildings.dwelling.sortSpace;
-import exceptions.FloorIndexOutOfBoundsException;
-import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;
 import interfaces.Space;
 

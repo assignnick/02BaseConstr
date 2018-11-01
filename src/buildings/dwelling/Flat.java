@@ -1,10 +1,11 @@
 package buildings.dwelling;
 
+import buildings.sortSpace;
 import interfaces.Space;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Flat implements Space,Serializable,Cloneable {
+public class Flat extends sortSpace implements Space,Serializable,Cloneable {
     Random random = new Random();
     private int rooms = 2;
     private double size = random.nextInt(50);
@@ -65,6 +66,8 @@ public class Flat implements Space,Serializable,Cloneable {
         return true;
     }
 
+
+
     @Override
     public int hashCode() {
         int hashf = 31;
@@ -90,4 +93,6 @@ public class Flat implements Space,Serializable,Cloneable {
         }
         return result;
     }
+
+
 }

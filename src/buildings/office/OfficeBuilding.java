@@ -1,6 +1,6 @@
 package buildings.office;
 
-import buildings.dwelling.sortSpace;
+import buildings.sortSpace;
 import exceptions.FloorIndexOutOfBoundsException;
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Building;
@@ -9,10 +9,10 @@ import interfaces.Space;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 
 
-
-public class OfficeBuilding implements Building,Serializable,Cloneable {
+public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<Floor> {
     private int numFloors;
     private static class Node { //узел списка
         Node next;
@@ -324,4 +324,29 @@ public class OfficeBuilding implements Building,Serializable,Cloneable {
         }
         return result;
     }
+    public Iterator<Floor> iterator() {
+
+        Iterator<Floor> it = new Iterator<>() {
+            private int currentIndex = 0;
+            Node head;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < numFloors &&  head.oneOfficeFloor!= null;
+            }
+
+            @Override
+            public Floor next() {
+
+                return head.next.oneOfficeFloor;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }
+
 }
