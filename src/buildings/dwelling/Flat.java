@@ -1,4 +1,4 @@
-package constructions.buildings;
+package buildings.dwelling;
 
 import interfaces.Space;
 import java.io.Serializable;

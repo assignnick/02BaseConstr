@@ -1,20 +1,18 @@
 package com.company;
-import constructions.OfficeBuildings.Office;
-import constructions.OfficeBuildings.OfficeBuilding;
-import constructions.OfficeBuildings.OfficeFloor;
-import constructions.buildings.Dwelling;
 
-import java.io.*;
+import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
+import buildings.dwelling.Dwelling;
+import buildings.dwelling.Flat;
+
 import java.util.Random;
 
 class Main {
     public static void main(String[] s) {
-        System.out.println(Double.compare(1., 0.));
         Random random = new Random();
-        Dwelling Dom = new Dwelling(5, 4);
-        System.out.println(Dom.getMassSpace());
+        Dwelling dom = new Dwelling(5, 4);
+      //  System.out.println(Dom.getMassSpace());
         System.out.println("");
-
         OfficeBuilding newOff = new OfficeBuilding(3, new int[]{3, 4, 5});
 
         int[] a = {3, 4, 5};
@@ -45,8 +43,32 @@ class Main {
         System.out.println(newOffice.getOneFloor(1));
         System.out.println(newOffice.getOneFloor(2));
 
+        System.out.println(dom);
 
-        Buildings.writeBuildingFormat("Office", newDDD);
+
+        Dwelling clone = (Dwelling) dom.clone();
+        Flat six = new Flat(1, 666.);
+        dom.changeSpace(1, six);
+        System.out.print("\nDom!!!!!!!!!!!!!!!!! \n" + dom);
+        System.out.print("\nclone!!!!!!!!!!!!!!!!! \n" + clone);
+
+
+
+//        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
+//            BufferedWriter buffer = new BufferedWriter(input)) {
+//
+//            System.out.print("\nDom!!!!!!!!!!!!!!!!! \n"+dom);
+//            Buildings.writeBuildingFormat( dom,buffer);
+//            Dwelling clone=(Dwelling) dom.clone();
+//            System.out.print("\nclone!!!!!!!!!!!!!!!!! \n"+clone);
+//            Buildings.writeBuildingFormat( clone,buffer);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
+
 
     }
 }

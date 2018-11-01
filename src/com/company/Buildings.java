@@ -1,11 +1,11 @@
 package com.company;
 
-import constructions.OfficeBuildings.Office;
-import constructions.OfficeBuildings.OfficeBuilding;
-import constructions.OfficeBuildings.OfficeFloor;
-import constructions.buildings.Dwelling;
-import constructions.buildings.DwellingFloor;
-import constructions.buildings.Flat;
+import buildings.office.Office;
+import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
+import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
+import buildings.dwelling.Flat;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
@@ -34,6 +34,7 @@ import java.util.Scanner;
 
 
 public class Buildings {
+    private static String str="ne Office";
 
    //записи данных о здании в байтовый поток
    public static void outputBuilding(Building building, OutputStream out) throws IOException {
@@ -54,7 +55,7 @@ public class Buildings {
    }
 
     //чтения данных о здании из байтового потока
-    public static Building inputBuilding(String str,InputStream in) throws IOException {
+    public static Building inputBuilding(InputStream in) throws IOException {
         DataInputStream byteIn = new DataInputStream(in);
         Floor floor;
         Space space;
@@ -111,8 +112,8 @@ public class Buildings {
 
     }
 	//чтения здания из символьного потока
-    //scanner
-    public static Building readBuilding (String str,Reader in) throws IOException{
+
+    public static Building readBuilding (Reader in) throws IOException{
         StreamTokenizer st = new StreamTokenizer(in);
         Floor floor;
         Space space;
@@ -146,6 +147,40 @@ public class Buildings {
         return build;
     }
 
+    //чтения здания из символьного потока
+    //scanner
+    public static Building readBuildingSc (Scanner sc)  {
+        Floor floor;
+        Space space;
+        int maxF = sc.nextInt();
+        Floor[] floors = new Floor[maxF];
+        int rooms; double size;
+        for (int i = 0; i < maxF; i++) {
+            int maxS = sc.nextInt();
+            Space[] spaces= new Space[maxS];
+            for (int j = 0; j < maxS; j++) {
+                rooms=sc.nextInt();
+                size=(double) sc.nextDouble();
+                if(str.equals("Office"))
+                    space=new Office(rooms,size);
+                else
+                    space=new Flat(rooms,size);
+                spaces[j]=space;
+            }
+            if (str.equals("Office"))
+                floor = new OfficeFloor(spaces);
+            else
+                floor = new DwellingFloor(spaces);
+            floors[i]=floor;
+        }
+        Building build;
+        if (str.equals("Office"))
+            build = new Dwelling(floors);
+        else
+            build = new OfficeBuilding(floors);
+        return build;
+    }
+
 
     //сериализации здания в байтовый поток
     public static void serializeBuilding (Building building, ObjectOutputStream out) throws IOException{
@@ -154,7 +189,7 @@ public class Buildings {
 //     out.close();
     }
     //десериализации здания из байтового потока
-    public static Building deserializeBuilding(String str, ObjectInputStream in) {
+    public static Building deserializeBuilding(ObjectInputStream in) {
         try {
             Building build;
             in = new ObjectInputStream(new FileInputStream("out.bin"));
@@ -172,9 +207,9 @@ public class Buildings {
         return null;
     }
 
-    public static void writeBuildingFormat(Writer str,Building building) {
+    public static void writeBuildingFormat(Building building, Writer out) {
 //        StringBuilder sb = new StringBuilder();
-        Formatter formatter = new Formatter(str);
+        Formatter formatter = new Formatter(out);
         if (str.equals("Office"))
             formatter.format("Офисное здание\n");
         else

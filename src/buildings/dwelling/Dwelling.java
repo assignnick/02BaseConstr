@@ -1,4 +1,4 @@
-package constructions.buildings;
+package buildings.dwelling;
 
 import interfaces.*;
 
@@ -179,12 +179,12 @@ public class Dwelling implements Building,Serializable,Cloneable {
 
             // clone of attay
             for(int i = 0; i < result.getAmountFloors(); i++) {
-                result.floors[i] = (Floor)result.getOneFloor(i).clone();
-               // result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
-                
-                for(int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
-                    result.getOneFloor(i).changeSpace(j, (Space)result.getSpace(j).clone());
-                }
+              //  result.floors[i] = (Floor)result.getOneFloor(i).clone();
+                result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
+
+//                for(int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
+//                    result.getOneFloor(i).changeSpace(j, (Space)result.getSpace(j).clone());
+//                }
             }
         } catch (CloneNotSupportedException e) {
             throw new InternalError();

@@ -1,4 +1,4 @@
-package constructions;
+package buildings;
 
 public class BuildFactory {
 }

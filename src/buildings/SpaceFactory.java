@@ -1,7 +1,7 @@
-package constructions;
+package buildings;
 
-import constructions.OfficeBuildings.Office;
-import constructions.buildings.Flat;
+import buildings.office.Office;
+import buildings.dwelling.Flat;
 import interfaces.Space;
 
 
