@@ -1,8 +1,8 @@
 package com.company;
 
-import buildings.office.Office;
-import buildings.office.OfficeBuilding;
-import buildings.office.OfficeFloor;
+import buildings.OfficeBuilding.Office;
+import buildings.OfficeBuilding.OfficeBuilding;
+import buildings.OfficeBuilding.OfficeFloor;
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;

@@ -1,9 +1,8 @@
 package com.company;
 
-import buildings.office.OfficeBuilding;
-import buildings.office.OfficeFloor;
-import buildings.dwelling.Dwelling;
-import buildings.dwelling.Flat;
+
+import buildings.dwelling.*;
+import buildings.office.*;
 
 import java.util.Random;
 
