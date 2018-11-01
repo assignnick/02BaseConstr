@@ -18,6 +18,7 @@ public class Dwelling implements Building,Serializable,Cloneable {
     }
     public  Dwelling(Floor[] Floors) {
         this.floors =Floors;
+        this.numFloors = Floors.length;
     }
 
     public int getAmountFloors(){ //метод получения общего количества этажей дома
