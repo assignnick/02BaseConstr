@@ -62,9 +62,7 @@ public class Office implements Space, Serializable, Cloneable {
     public String toString() {
         return "Office (" + rooms + ", " + size + ")";
     }
-    public String name(){ //toString???
-        return "Офисное здание";
-    }
+
 
     public boolean equals(Object obj) {
         if (this == obj)

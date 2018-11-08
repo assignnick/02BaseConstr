@@ -1,7 +1,6 @@
 package buildings;
 
 import interfaces.Space;
-
 import java.util.Comparator;
 /*reducent!*/
 public class sortSpace implements Comparator<Space> {

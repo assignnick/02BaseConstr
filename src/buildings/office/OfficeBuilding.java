@@ -285,6 +285,9 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         }
         return str.toString();
     }
+    public String name(){ //toString???
+        return "Офисное здание";
+    }
 
     public boolean equals(Object obj) {
         if (this == obj)

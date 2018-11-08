@@ -4,6 +4,9 @@ package com.company;
 import buildings.dwelling.*;
 import buildings.office.*;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Random;
 
 class Main {
@@ -53,18 +56,20 @@ class Main {
 
 
 
-//        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
-//            BufferedWriter buffer = new BufferedWriter(input)) {
-//
-//            System.out.print("\nDom!!!!!!!!!!!!!!!!! \n"+dom);
-//            Buildings.writeBuildingFormat( dom,buffer);
-//            Dwelling clone=(Dwelling) dom.clone();
-//            System.out.print("\nclone!!!!!!!!!!!!!!!!! \n"+clone);
-//            Buildings.writeBuildingFormat( clone,buffer);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
+            BufferedWriter buffer = new BufferedWriter(input)) {
+
+            System.out.print("\nDom!!!!!!!!!!!!!!!!! \n"+dom);
+            Buildings.writeBuildingFormat( dom,buffer);
+            buffer.flush();
+            Dwelling clone2=(Dwelling) dom.clone();
+            System.out.print("\nclone!!!!!!!!!!!!!!!!! \n"+clone2);
+            Buildings.writeBuildingFormat( clone,buffer);
+            buffer.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
 
