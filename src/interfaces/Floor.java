@@ -16,5 +16,6 @@ public interface Floor extends Comparable<Floor>{
     public int hashCode();
     public Object clone();
     public Iterator iterator();
+    public boolean equals(Object obj);
 
 }

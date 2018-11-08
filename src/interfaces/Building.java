@@ -17,7 +17,10 @@ public interface  Building {
     public Space getBestSpace();//получения лучшего помещения в здании
     public Space[] getMassSpace();//получения отсортированного массива всех помещений
     public String toString();
+    public String name();
     public int hashCode();
     public Object clone();
     public Iterator iterator();
+    public boolean equals(Object obj);
+
 }

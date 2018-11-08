@@ -19,6 +19,12 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
         for (int i = 0; i < numFloors; i++)
             floors[i] = new DwellingFloor(numApartments);
     }
+    public  Dwelling( int numFloors,int[] spacesCounts ) {
+        this.numFloors = numFloors;
+        this.floors = new Floor[numFloors];
+        for (int i = 0; i < numFloors; i++)
+            floors[i] = new DwellingFloor(spacesCounts[i]);
+    }
     public  Dwelling(Floor[] Floors) {
         this.floors =Floors;
         this.numFloors = Floors.length;
@@ -154,6 +160,10 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
         }
         return str.toString();
     }
+    public String name(){ //toString???
+        return "Жилое здание";
+    }
+
 
     public boolean equals(Object obj) {
         if (this == obj)

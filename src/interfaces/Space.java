@@ -8,4 +8,5 @@ public interface Space extends Comparable<Space>{
     public String toString();
     public int hashCode();
     public Object clone();
+    public boolean equals(Object obj);
 }

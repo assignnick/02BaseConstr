@@ -2,16 +2,18 @@ package com.company;
 
 
 import buildings.dwelling.Dwelling;
-import buildings.dwelling.DwellingFloor;
-import buildings.dwelling.Flat;
-import buildings.office.Office;
+import buildings.factory.DwellingFactory;
+import buildings.factory.HotelFactory;
+import buildings.factory.OfficeFactory;
+import buildings.hotel.Hotel;
 import buildings.office.OfficeBuilding;
-import buildings.office.OfficeFloor;
 import interfaces.Building;
+import interfaces.BuildingFactory;
 import interfaces.Floor;
 import interfaces.Space;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Scanner;
 
@@ -33,8 +35,36 @@ import java.util.Scanner;
 //
 
 
-public class Buildings {
-    private static String str = "ne Office";
+public class Buildings implements Comparator<Object> {
+    private static BuildingFactory BuildingFactory = new DwellingFactory();
+
+    public static void setBuildingFactory(BuildingFactory BuildingFactory) {
+        Buildings.BuildingFactory = BuildingFactory;
+    }
+
+    public static Space createSpace(double area) {
+        return BuildingFactory.createSpace(area);
+    }
+
+    public static Space createSpace(int roomsCount, double area) {
+        return BuildingFactory.createSpace(roomsCount, area);
+    }
+
+    public static Floor createFloor(int spacesCount) {
+        return BuildingFactory.createFloor(spacesCount);
+    }
+
+    public static Floor createFloor(Space[] spaces) {
+        return BuildingFactory.createFloor(spaces);
+    }
+
+    public static Building createBuilding(int floorsCount, int[] spacesCounts) {
+        return BuildingFactory.createBuilding(floorsCount, spacesCounts);
+    }
+
+    public static Building createBuilding(Floor[] floors) {
+        return BuildingFactory.createBuilding(floors);
+    }
 
     //записи данных о здании в байтовый поток
     public static void outputBuilding(Building building, OutputStream out) throws IOException {
@@ -69,23 +99,14 @@ public class Buildings {
             for (int j = 0; j < maxS; j++) {
                 rooms = byteIn.readInt();
                 size = byteIn.readDouble();
-                if (str.equals("Office"))
-                    space = new Office(rooms, size);
-                else
-                    space = new Flat(rooms, size);
+                space = createSpace(rooms, size);//instead if
                 spaces[j] = space;
             }
-            if (str.equals("Office"))
-                floor = new OfficeFloor(spaces);
-            else
-                floor = new DwellingFloor(spaces);
+            floor = createFloor(spaces);//instead if
             floors[i] = floor;
         }
         Building bild;
-        if (str.equals("Office"))
-            bild = new Dwelling(floors);
-        else
-            bild = new OfficeBuilding(floors);
+        bild = createBuilding(floors);//instead if
 //        byteIn.close();
         return bild;
     }
@@ -112,8 +133,8 @@ public class Buildings {
 //        print.close();
 
     }
-    //чтения здания из символьного потока
 
+    //чтения здания из символьного потока
     public static Building readBuilding(Reader in) throws IOException {
         StreamTokenizer st = new StreamTokenizer(in);
         Floor floor;
@@ -129,23 +150,14 @@ public class Buildings {
             for (int j = 0; j < maxS; j++) {
                 rooms = st.nextToken();
                 size = (double) st.nextToken();
-                if (str.equals("Office"))
-                    space = new Office(rooms, size);
-                else
-                    space = new Flat(rooms, size);
+                space = createSpace(rooms, size);//instead if
                 spaces[j] = space;
             }
-            if (str.equals("Office"))
-                floor = new OfficeFloor(spaces);
-            else
-                floor = new DwellingFloor(spaces);
+            floor = createFloor(spaces);//instead if
             floors[i] = floor;
         }
         Building build;
-        if (str.equals("Office"))
-            build = new Dwelling(floors);
-        else
-            build = new OfficeBuilding(floors);
+        build = createBuilding(floors);//instead if
         return build;
     }
 
@@ -164,23 +176,14 @@ public class Buildings {
             for (int j = 0; j < maxS; j++) {
                 rooms = sc.nextInt();
                 size = (double) sc.nextDouble();
-                if (str.equals("Office"))
-                    space = new Office(rooms, size);
-                else
-                    space = new Flat(rooms, size);
+                space = createSpace(rooms, size);//instead if
                 spaces[j] = space;
             }
-            if (str.equals("Office"))
-                floor = new OfficeFloor(spaces);
-            else
-                floor = new DwellingFloor(spaces);
+            floor = createFloor(spaces);//instead if
             floors[i] = floor;
         }
         Building build;
-        if (str.equals("Office"))
-            build = new Dwelling(floors);
-        else
-            build = new OfficeBuilding(floors);
+        build = createBuilding(floors);//instead if
         return build;
     }
 
@@ -195,12 +198,14 @@ public class Buildings {
     //десериализации здания из байтового потока
     public static Building deserializeBuilding(ObjectInputStream in) {
         try {
-            Building build;
+            Building build = null;
             in = new ObjectInputStream(new FileInputStream("out.bin"));
-            if (str.equals("Office"))
-                build = (OfficeBuilding) in.readObject();
-            else
+            if (BuildingFactory instanceof DwellingFactory)
                 build = (Dwelling) in.readObject();
+            else if (BuildingFactory instanceof OfficeFactory)
+                build = (OfficeBuilding) in.readObject();
+            else if (BuildingFactory instanceof HotelFactory)
+                build = (Hotel) in.readObject();
 //            in.close();
             return build;
         } catch (IOException e) {
@@ -212,12 +217,8 @@ public class Buildings {
     }
 
     public static void writeBuildingFormat(Building building, Writer out) {
-
         Formatter formatter = new Formatter(out);
-        if (str.equals("Office"))
-            formatter.format("Офисное здание\n");
-        else
-            formatter.format("Жилое здание\n");
+        formatter.format(building.name() + "\n");
         Floor floor;
         Space space;
         int max = building.getAmountFloors();
@@ -240,4 +241,11 @@ public class Buildings {
         }
     }
 
+    public int compare(Object o1, Object o2) {
+        if (o1 instanceof Space && o2 instanceof Space)
+            return -Double.compare(((Space) o1).getSize(), ((Space) o2).getSize());
+        else if (o1 instanceof Floor && o2 instanceof Floor)
+            return -Integer.compare(((Floor) o1).getAmountSpaces(), ((Floor) o2).getAmountSpaces());
+        return 0;
+    }
 }

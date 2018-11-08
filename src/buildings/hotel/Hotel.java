@@ -13,6 +13,9 @@ public class Hotel extends Dwelling{
         super(numFloors,numApartments);
 
     }
+    public  Hotel( int numFloors,int[] spacesCounts ) {
+        super(numFloors,spacesCounts);
+    }
     public  Hotel(Floor[] Floors) {
         super(Floors);
 
@@ -68,6 +71,10 @@ public class Hotel extends Dwelling{
             str.append(sp.toString());
         }
         return str.toString();
+    }
+
+    public String name(){ //toString???
+        return "Здание отеля";
     }
 
     public boolean equals(Object obj) {
