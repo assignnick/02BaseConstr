@@ -68,7 +68,7 @@ public class HotelFloor extends DwellingFloor{
             int hashf = 31;
             int res = 1;
             for(Space sp : flats)
-                res += hashf * res * sp.hashCode();
+                res += hashf ^ res ^ sp.hashCode() ^ flats.length ^ getStar();
             return res;
         }
 

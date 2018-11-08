@@ -1,11 +1,12 @@
 package com.company;
 
-import buildings.OfficeBuilding.Office;
-import buildings.OfficeBuilding.OfficeBuilding;
-import buildings.OfficeBuilding.OfficeFloor;
+
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
+import buildings.office.Office;
+import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
@@ -32,27 +33,26 @@ import java.util.Scanner;
 //
 
 
-
 public class Buildings {
-    private static String str="ne Office";
+    private static String str = "ne Office";
 
-   //записи данных о здании в байтовый поток
-   public static void outputBuilding(Building building, OutputStream out) throws IOException {
-       DataOutputStream byteOut = new DataOutputStream(out);
-       Floor floor;
-       Space space;
-       byteOut.writeInt(building.getAmountFloors());
-       for (int i = 0, max = building.getAmountFloors(); i < max; i++) {
-           floor = building.getOneFloor(i);
-           byteOut.writeInt(floor.getAmountSpaces());
-           for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
-               space = floor.getOneSpace(j);
-               byteOut.writeInt(space.getRooms());
-               byteOut.writeDouble(space.getSize());
-           }
-       }
+    //записи данных о здании в байтовый поток
+    public static void outputBuilding(Building building, OutputStream out) throws IOException {
+        DataOutputStream byteOut = new DataOutputStream(out);
+        Floor floor;
+        Space space;
+        byteOut.writeInt(building.getAmountFloors());
+        for (int i = 0, max = building.getAmountFloors(); i < max; i++) {
+            floor = building.getOneFloor(i);
+            byteOut.writeInt(floor.getAmountSpaces());
+            for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
+                space = floor.getOneSpace(j);
+                byteOut.writeInt(space.getRooms());
+                byteOut.writeDouble(space.getSize());
+            }
+        }
 //       byteOut.close();
-   }
+    }
 
     //чтения данных о здании из байтового потока
     public static Building inputBuilding(InputStream in) throws IOException {
@@ -61,24 +61,25 @@ public class Buildings {
         Space space;
         int maxF = byteIn.readInt();
         Floor[] floors = new Floor[maxF];
-        int rooms; double size;
+        int rooms;
+        double size;
         for (int i = 0; i < maxF; i++) {
             int maxS = byteIn.readInt();
-            Space[] spaces= new Space[maxS];
+            Space[] spaces = new Space[maxS];
             for (int j = 0; j < maxS; j++) {
-                rooms=byteIn.readInt();
-                size=byteIn.readDouble();
-                if(str.equals("Office"))
-                space=new Office(rooms,size);
+                rooms = byteIn.readInt();
+                size = byteIn.readDouble();
+                if (str.equals("Office"))
+                    space = new Office(rooms, size);
                 else
-                space=new Flat(rooms,size);
-                spaces[j]=space;
+                    space = new Flat(rooms, size);
+                spaces[j] = space;
             }
             if (str.equals("Office"))
                 floor = new OfficeFloor(spaces);
             else
                 floor = new DwellingFloor(spaces);
-            floors[i]=floor;
+            floors[i] = floor;
         }
         Building bild;
         if (str.equals("Office"))
@@ -89,8 +90,8 @@ public class Buildings {
         return bild;
     }
 
- 	//записи здания в символьный поток
-    public static void writeBuilding (Building building, Writer out){
+    //записи здания в символьный поток
+    public static void writeBuilding(Building building, Writer out) {
         PrintWriter print = new PrintWriter(out);
         Floor floor;
         Space space;
@@ -111,33 +112,34 @@ public class Buildings {
 //        print.close();
 
     }
-	//чтения здания из символьного потока
+    //чтения здания из символьного потока
 
-    public static Building readBuilding (Reader in) throws IOException{
+    public static Building readBuilding(Reader in) throws IOException {
         StreamTokenizer st = new StreamTokenizer(in);
         Floor floor;
         Space space;
 
         int maxF = st.nextToken();
         Floor[] floors = new Floor[maxF];
-        int rooms; double size;
+        int rooms;
+        double size;
         for (int i = 0; i < maxF; i++) {
             int maxS = st.nextToken();
-            Space[] spaces= new Space[maxS];
+            Space[] spaces = new Space[maxS];
             for (int j = 0; j < maxS; j++) {
-                rooms=st.nextToken();
-                size=(double) st.nextToken();
-                if(str.equals("Office"))
-                    space=new Office(rooms,size);
+                rooms = st.nextToken();
+                size = (double) st.nextToken();
+                if (str.equals("Office"))
+                    space = new Office(rooms, size);
                 else
-                    space=new Flat(rooms,size);
-                spaces[j]=space;
+                    space = new Flat(rooms, size);
+                spaces[j] = space;
             }
             if (str.equals("Office"))
                 floor = new OfficeFloor(spaces);
             else
                 floor = new DwellingFloor(spaces);
-            floors[i]=floor;
+            floors[i] = floor;
         }
         Building build;
         if (str.equals("Office"))
@@ -149,29 +151,30 @@ public class Buildings {
 
     //чтения здания из символьного потока
     //scanner
-    public static Building readBuildingSc (Scanner sc)  {
+    public static Building readBuildingSc(Scanner sc) {
         Floor floor;
         Space space;
         int maxF = sc.nextInt();
         Floor[] floors = new Floor[maxF];
-        int rooms; double size;
+        int rooms;
+        double size;
         for (int i = 0; i < maxF; i++) {
             int maxS = sc.nextInt();
-            Space[] spaces= new Space[maxS];
+            Space[] spaces = new Space[maxS];
             for (int j = 0; j < maxS; j++) {
-                rooms=sc.nextInt();
-                size=(double) sc.nextDouble();
-                if(str.equals("Office"))
-                    space=new Office(rooms,size);
+                rooms = sc.nextInt();
+                size = (double) sc.nextDouble();
+                if (str.equals("Office"))
+                    space = new Office(rooms, size);
                 else
-                    space=new Flat(rooms,size);
-                spaces[j]=space;
+                    space = new Flat(rooms, size);
+                spaces[j] = space;
             }
             if (str.equals("Office"))
                 floor = new OfficeFloor(spaces);
             else
                 floor = new DwellingFloor(spaces);
-            floors[i]=floor;
+            floors[i] = floor;
         }
         Building build;
         if (str.equals("Office"))
@@ -183,11 +186,12 @@ public class Buildings {
 
 
     //сериализации здания в байтовый поток
-    public static void serializeBuilding (Building building, ObjectOutputStream out) throws IOException{
-     out = new ObjectOutputStream(new FileOutputStream("out.bin"));
-     out.writeObject(building);
+    public static void serializeBuilding(Building building, ObjectOutputStream out) throws IOException {
+        out = new ObjectOutputStream(new FileOutputStream("out.bin"));
+        out.writeObject(building);
 //     out.close();
     }
+
     //десериализации здания из байтового потока
     public static Building deserializeBuilding(ObjectInputStream in) {
         try {
@@ -208,7 +212,7 @@ public class Buildings {
     }
 
     public static void writeBuildingFormat(Building building, Writer out) {
-//        StringBuilder sb = new StringBuilder();
+
         Formatter formatter = new Formatter(out);
         if (str.equals("Office"))
             formatter.format("Офисное здание\n");
@@ -217,40 +221,23 @@ public class Buildings {
         Floor floor;
         Space space;
         int max = building.getAmountFloors();
-        int rooms; double size;
-        formatter.format("Количество этажей %s\n",max);
+        int rooms;
+        double size;
+        formatter.format("Количество этажей %s\n", max);
         for (int i = 0; i < max; i++) {
             floor = building.getOneFloor(i);
-            int maxS=floor.getAmountSpaces();
-            formatter.format("Этаж %s(%s). Квартир на этаже %s\n",i+1,i,maxS);
-            int number=0;
+            int maxS = floor.getAmountSpaces();
+            formatter.format("Этаж %s(%s). Квартир на этаже %s\n", i + 1, i, maxS);
+            int number = 0;
             for (int j = 0; j < maxS; j++) {
                 number++;
-                formatter.format("Квартира №%s(%s) ",number,j);
+                formatter.format("Квартира №%s(%s) ", number, j);
                 space = floor.getOneSpace(j);
-                rooms=space.getRooms();
-                size=space.getSize();
-                formatter.format("Комнат: %s, Площадь: %.2f\n",rooms,size);
+                rooms = space.getRooms();
+                size = space.getSize();
+                formatter.format("Комнат: %s, Площадь: %.2f\n", rooms, size);
             }
-
         }
-//        System.out.println(sb.toString());
     }
-}
 
-//        Добавьте в класс Buildings следующие методы:
-//        •	сериализации здания в байтовый поток
-//public static void serializeBuilding (Building building, OutputStream out);
-//        •	десериализации здания из байтового потока
-//public static Building deserializeBuilding (InputStream in);
-//        Продемонстрировать возможности сериализации в методе main(), записав в файл объект, затем считав и сравнив его с исходным.
-////
-////        Задание 5
-////        Добавьте метод текстовой записи
-////public static void writeBuildingFormat (Building building, Writer out)
-////        для зданий класса Buildings, использующий возможности форматированного вывода.
-////        Перегрузите метод текстового чтения зданий класса Buildings таким образом,
-// чтобы он использовал возможности форматированного ввода и вывода и имел аргумент типа Scanner.
-////
-////
-////        Примечание: При проверке работы методов в методе main() используйте блок try с ресурсом.
+}

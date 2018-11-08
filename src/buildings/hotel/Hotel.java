@@ -87,7 +87,7 @@ public class Hotel extends Dwelling{
         int hashf = 31;
         int res = 1;
         for(Floor sp : floors)
-            res += hashf * res * sp.hashCode();
+            res += hashf ^ res ^ sp.hashCode() ^ floors.length;
         return res;
     }
     public Object clone() {

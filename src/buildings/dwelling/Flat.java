@@ -93,6 +93,14 @@ public class Flat extends sortSpace implements Space,Serializable,Cloneable {
         }
         return result;
     }
-
+    @Override
+    public int compareTo(Space obj) {
+        Flat tmp = (Flat) obj;
+        if (this.getSize() < tmp.getSize())
+            return -1;
+        else if (this.getSize() > tmp.getSize())
+            return 1;
+        return 0;
+    }
 
 }

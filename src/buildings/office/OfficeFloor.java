@@ -1,15 +1,17 @@
 package buildings.office;
 
+
 import exceptions.SpaceIndexOutOfBoundsException;
 import interfaces.Floor;
 import interfaces.Space;
 
 import java.io.Serializable;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space> {
+public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space>{
    private int numOffices;
+
+
     private static class Node { //узел списка
         Node next;
         Space oneOffice;
@@ -263,5 +265,14 @@ public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space>
         return it;
     }
 
+    @Override
+    public int compareTo(Floor obj) {
+
+        if (this.getAmountSpaces() < obj.getAmountSpaces())
+            return -1;
+        else if (this.getAmountSpaces() > obj.getAmountSpaces())
+            return 1;
+        return 0;
+    }
 }
 

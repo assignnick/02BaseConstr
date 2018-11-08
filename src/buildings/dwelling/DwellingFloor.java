@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<Space> {
+public class DwellingFloor implements Floor, Serializable, Cloneable {
     private int numApartments;
     private Space[] flats;
 
@@ -157,5 +157,16 @@ public class DwellingFloor implements Floor, Serializable, Cloneable, Iterable<S
             }
         };
         return it;
+    }
+
+
+    @Override
+    public int compareTo(Floor obj) {
+
+        if (this.getAmountSpaces() < obj.getAmountSpaces())
+            return -1;
+        else if (this.getAmountSpaces() > obj.getAmountSpaces())
+            return 1;
+        return 0;
     }
 }
