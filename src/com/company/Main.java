@@ -3,6 +3,7 @@ package com.company;
 
 import buildings.dwelling.*;
 import buildings.office.*;
+import interfaces.Space;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,52 +25,59 @@ class Main {
         OfficeFloor newfloor = new OfficeFloor(1);
         System.out.println("newfloor " + newfloor.getAmountSpaces());
 
-/*
-        for (int i=0;i<3;i++)
-            for (int j=0;j<newOffice.getOneFloor(i).getAmountSpaces();j++)
-            newOffice.getOneFloor(i).getOneSpace(j).setSize(random.nextInt(400)+1);
-        System.out.println("newOffice 0 "+newOffice.getOneFloor(0).getOneSpace(0).getSize());*/
+//        for (int i=0;i<3;i++)
+//            for (int j=0;j<newOffice.getOneFloor(i).getAmountSpaces();j++)
+//            newOffice.getOneFloor(i).getOneSpace(j).setSize(random.nextInt(400)+1);
+//        System.out.println("newOffice 0 "+newOffice.getOneFloor(0).getOneSpace(0).getSize());
 
-        System.out.println(newDDD.getOneFloor(0));
-
-        System.out.println(newDDD.getOneFloor(1));
-        System.out.println(newDDD.getOneFloor(2));
+//        System.out.println(newDDD.getOneFloor(0));
+//        System.out.println(newDDD.getOneFloor(1));
+//        System.out.println(newDDD.getOneFloor(2));
 
         OfficeFloor newOfficeFl = new OfficeFloor(a.length);
-        System.out.println("fg " + newOfficeFl.getOneSpace(0));
-        System.out.println("fg " + newOfficeFl.getOneSpace(1));
-        System.out.println("fg " + newOfficeFl.getOneSpace(2));
+//        System.out.println("fg " + newOfficeFl.getOneSpace(0));
+//        System.out.println("fg " + newOfficeFl.getOneSpace(1));
+//        System.out.println("fg " + newOfficeFl.getOneSpace(2));
+//
+//        System.out.println(newOffice.getOneFloor(0));
+//        System.out.println(newOffice.getOneFloor(1));
+//        System.out.println(newOffice.getOneFloor(2));
 
-        System.out.println(newOffice.getOneFloor(0));
-
-        System.out.println(newOffice.getOneFloor(1));
-        System.out.println(newOffice.getOneFloor(2));
-
-        System.out.println(dom);
+//        System.out.println(dom);
 
 
         Dwelling clone = (Dwelling) dom.clone();
         Flat six = new Flat(1, 666.);
         dom.changeSpace(1, six);
         System.out.print("\nDom!!!!!!!!!!!!!!!!! \n" + dom);
-        System.out.print("\nclone!!!!!!!!!!!!!!!!! \n" + clone);
+        System.out.print("\nclone!!!!!!!!!!!!!!!!! \n" + clone+"\n");
+
+
+        Office d1= new Office();
+        Office d2= new Office(1,20);
+        Office d3= new Office(30.);
+        newOfficeFl = new OfficeFloor(new Space[]{d1, d2, d3});
+        newOfficeFl.getOneSpace(1).setSize(10);
+        newOfficeFl.removeSpace(0);
+        for(int sdd=0; sdd<newOfficeFl.getAmountSpaces();sdd++)
+        System.out.println("et " + newOfficeFl.getOneSpace(sdd));
 
 
 
-        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
-            BufferedWriter buffer = new BufferedWriter(input)) {
-
-            System.out.print("\nDom!!!!!!!!!!!!!!!!! \n"+dom);
-            Buildings.writeBuildingFormat( dom,buffer);
-            buffer.flush();
-            Dwelling clone2=(Dwelling) dom.clone();
-            System.out.print("\nclone!!!!!!!!!!!!!!!!! \n"+clone2);
-            Buildings.writeBuildingFormat( clone,buffer);
-            buffer.flush();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
+//            BufferedWriter buffer = new BufferedWriter(input)) {
+//
+//            System.out.print("\nDom!!!!!!!!!!!!!!!!! \n"+dom);
+//            Buildings.writeBuildingFormat( dom,buffer);
+//            buffer.flush();
+//            Dwelling clone2=(Dwelling) dom.clone();
+//            System.out.print("\nclone!!!!!!!!!!!!!!!!! \n"+clone2);
+//            Buildings.writeBuildingFormat( clone,buffer);
+//            buffer.flush();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
 

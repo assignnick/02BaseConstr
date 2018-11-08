@@ -79,6 +79,7 @@ public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space>
         }
         newNode.next = a.next;
         a.next = newNode;
+        numOffices++;
     }
 
 
@@ -88,6 +89,7 @@ public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space>
             a = a.next;
         }
         a.next = a.next.next;
+        numOffices--;
     }
 
 

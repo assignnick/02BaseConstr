@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.Iterator;
 
-public interface  Building {
+public interface  Building extends Iterable<Floor>{
     public int getAmountFloors();//получения количества этажей в здании
     public int getAmountSpace();//получения количества помещений в здании
     public double getTotalSize();//получения общей площади всех помещений здания
@@ -16,11 +16,7 @@ public interface  Building {
     public void removeSpace(int index);//удаления помещения из здания
     public Space getBestSpace();//получения лучшего помещения в здании
     public Space[] getMassSpace();//получения отсортированного массива всех помещений
-    public String toString();
     public String name();
-    public int hashCode();
     public Object clone();
-    public Iterator iterator();
-    public boolean equals(Object obj);
 
 }

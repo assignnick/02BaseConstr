@@ -72,6 +72,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         newNode.next=a.next;
         a.next = newNode;
         newNode.prev = a;
+        numFloors++;
     }
 
 
@@ -82,6 +83,7 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         }
         a.next = a.next.next;
         a.next.prev = a;
+        numFloors--;
     }
 
     public int getAmountFloors(){ //метод получения общего количества этажей дома
