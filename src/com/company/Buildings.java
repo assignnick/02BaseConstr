@@ -37,7 +37,7 @@ import java.util.Scanner;
 //
 
 
-public class Buildings implements Comparator<Object> {
+public class Buildings {
     private static BuildingFactory BuildingFactory = new DwellingFactory();
 
     public static void setBuildingFactory(BuildingFactory BuildingFactory) {
@@ -243,7 +243,7 @@ public class Buildings implements Comparator<Object> {
         }
     }
 
-    public int compare(Object o1, Object o2) {
+    public int Sort(Object o1, Object o2) {
         if (o1 instanceof Space && o2 instanceof Space)
             return new sortSpace().compare((Space)o1,(Space)o2);
         else if (o1 instanceof Floor && o2 instanceof Floor)

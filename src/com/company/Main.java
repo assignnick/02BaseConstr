@@ -73,8 +73,8 @@ class Main {
         DwellingFloor strmflr = new DwellingFloor(4);
     	Thread repairer = new Thread(new SequentalRepairer(strmflr,sem));
     	Thread cleaner = new Thread(new SequentalCleaner(strmflr,sem));
-    	repairer.start();
-    	cleaner.start();
+//    	repairer.start();
+//    	cleaner.start();
 
       /*  Thread repairer = new Thread(new Cleaner(strmflr));
         repairer.start();*/
