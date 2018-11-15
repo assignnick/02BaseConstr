@@ -142,7 +142,7 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
                 for (int j = 0; j < floors[i].getAmountSpaces(); j++){
                     flat++;
                     sortm[flat]= floors[i].getOneSpace(j);}
-        Arrays.sort((Space[])sortm, new sortSpace());
+        Arrays.sort(sortm, new sortSpace());
 
         for (int i = 0; i < getAmountSpace(); i++){
             System.out.println(sortm[i].getSize()+"   "+ sortm[i].getRooms());

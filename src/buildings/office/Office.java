@@ -106,10 +106,9 @@ public class Office implements Space, Serializable, Cloneable {
 
     @Override
     public int compareTo(Space obj) {
-        Space tmp = (Space) obj;
-        if (this.getSize() < tmp.getSize())
+        if (this.getSize() < obj.getSize())
             return -1;
-        else if (this.getSize() > tmp.getSize())
+        else if (this.getSize() > obj.getSize())
             return 1;
         return 0;
     }

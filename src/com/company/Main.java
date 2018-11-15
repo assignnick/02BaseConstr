@@ -3,12 +3,17 @@ package com.company;
 
 import buildings.dwelling.*;
 import buildings.office.*;
+import buildings.threads.Cleaner;
+import buildings.threads.Repairer;
+import buildings.threads.SequentalCleaner;
+import buildings.threads.SequentalRepairer;
 import interfaces.Space;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 class Main {
     public static void main(String[] s) {
@@ -23,7 +28,7 @@ class Main {
         Dwelling newDDD = new Dwelling(a.length, 5);
 
         OfficeFloor newfloor = new OfficeFloor(1);
-        System.out.println("newfloor " + newfloor.getAmountSpaces());
+//        System.out.println("newfloor " + newfloor.getAmountSpaces());
 
 //        for (int i=0;i<3;i++)
 //            for (int j=0;j<newOffice.getOneFloor(i).getAmountSpaces();j++)
@@ -46,7 +51,7 @@ class Main {
 //        System.out.println(dom);
 
 
-        Dwelling clone = (Dwelling) dom.clone();
+   /*     Dwelling clone = (Dwelling) dom.clone();
         Flat six = new Flat(1, 666.);
         dom.changeSpace(1, six);
         System.out.print("\nDom!!!!!!!!!!!!!!!!! \n" + dom);
@@ -61,8 +66,18 @@ class Main {
         newOfficeFl.removeSpace(0);
         for(int sdd=0; sdd<newOfficeFl.getAmountSpaces();sdd++)
         System.out.println("et " + newOfficeFl.getOneSpace(sdd));
+*/
 
 
+        Semaphore sem = new Semaphore(1);
+        DwellingFloor strmflr = new DwellingFloor(4);
+    	Thread repairer = new Thread(new SequentalRepairer(strmflr,sem));
+    	Thread cleaner = new Thread(new SequentalCleaner(strmflr,sem));
+    	repairer.start();
+    	cleaner.start();
+
+      /*  Thread repairer = new Thread(new Cleaner(strmflr));
+        repairer.start();*/
 
 //        try(OutputStreamWriter input = new OutputStreamWriter(System.out);
 //            BufferedWriter buffer = new BufferedWriter(input)) {

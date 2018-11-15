@@ -7,6 +7,8 @@ import buildings.factory.HotelFactory;
 import buildings.factory.OfficeFactory;
 import buildings.hotel.Hotel;
 import buildings.office.OfficeBuilding;
+import buildings.sortFloor;
+import buildings.sortSpace;
 import interfaces.Building;
 import interfaces.BuildingFactory;
 import interfaces.Floor;
@@ -200,12 +202,12 @@ public class Buildings implements Comparator<Object> {
         try {
             Building build = null;
             in = new ObjectInputStream(new FileInputStream("out.bin"));
-            if (BuildingFactory instanceof DwellingFactory)
+//            if (BuildingFactory instanceof DwellingFactory)
                 build = (Dwelling) in.readObject();
-            else if (BuildingFactory instanceof OfficeFactory)
-                build = (OfficeBuilding) in.readObject();
-            else if (BuildingFactory instanceof HotelFactory)
-                build = (Hotel) in.readObject();
+//            else if (BuildingFactory instanceof OfficeFactory)
+//                build = (OfficeBuilding) in.readObject();
+//            else if (BuildingFactory instanceof HotelFactory)
+//                build = (Hotel) in.readObject();
 //            in.close();
             return build;
         } catch (IOException e) {
@@ -243,9 +245,9 @@ public class Buildings implements Comparator<Object> {
 
     public int compare(Object o1, Object o2) {
         if (o1 instanceof Space && o2 instanceof Space)
-            return -Double.compare(((Space) o1).getSize(), ((Space) o2).getSize());
+            return new sortSpace().compare((Space)o1,(Space)o2);
         else if (o1 instanceof Floor && o2 instanceof Floor)
-            return -Integer.compare(((Floor) o1).getAmountSpaces(), ((Floor) o2).getAmountSpaces());
+            return new sortFloor().compare((Floor)o1,(Floor)o2);
         return 0;
     }
 }

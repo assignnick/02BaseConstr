@@ -4,12 +4,13 @@ import interfaces.Floor;
 import interfaces.Space;
 
 public class Cleaner extends Thread{
-    protected Floor floor;
+    private Floor floor;
 
     public Cleaner(Floor floor) {
         this.floor = floor;
     }
 
+    @Override
     public void run() {
         int spacesAmount = floor.getAmountSpaces();
         Space[] spaces = floor.getMassSpace();

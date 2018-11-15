@@ -5,7 +5,7 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Flat extends sortSpace implements Space,Serializable,Cloneable {
+public class Flat implements Space,Serializable,Cloneable {
     Random random = new Random();
     private int rooms = 2;
     private double size = random.nextInt(50);
@@ -95,10 +95,9 @@ public class Flat extends sortSpace implements Space,Serializable,Cloneable {
     }
     @Override
     public int compareTo(Space obj) {
-        Space tmp = (Space) obj;
-        if (this.getSize() < tmp.getSize())
+        if (this.getSize() < obj.getSize())
             return -1;
-        else if (this.getSize() > tmp.getSize())
+        else if (this.getSize() > obj.getSize())
             return 1;
         return 0;
     }
