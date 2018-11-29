@@ -37,21 +37,21 @@ public class PlacementExchanger {
             throw new SpaceIndexOutOfBoundsException();
         }
         Space temp = floor1.getOneSpace(index1);
-        floor1.changeSpace(index1, floor2.getOneSpace(index2));
-        floor2.changeSpace(index2, temp);
+        floor1.setSpace(index1, floor2.getOneSpace(index2));
+        floor2.setSpace(index2, temp);
     }// Метод должен проверять возможность обмена помещениями и допустимость номеров помещений, выбрасывать при необходимости соответствующие исключения.
 
 
     public static void exchangeBuildingFloors(Building building1, int index1, Building building2, int index2) throws InexchangeableFloorsException {  //Метод обмена этажами двух зданий Методу передаются две ссылки типа Building и номера соответствующих этажей. Метод должен проверять возможность обмена этажами и допустимость номеров этажей, выбрасывать при необходимости соответствующие исключения
-        if (!replaceFloor(building1.getOneFloor(index1), building2.getOneFloor(index2))) {
+        if (!replaceFloor(building1.getFloor(index1), building2.getFloor(index2))) {
             throw new InexchangeableFloorsException();
         }
         if ((index1 >= building1.getAmountFloors() || index1 < 0) || (index2 >= building2.getAmountFloors() || index2 < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
-        Floor temp = building1.getOneFloor(index1);
-        building1.changeFloor(index1, building2.getOneFloor(index2));
-        building2.changeFloor(index2, temp);
+        Floor temp = building1.getFloor(index1);
+        building1.setFloor(index1, building2.getFloor(index2));
+        building2.setFloor(index2, temp);
     }// Метод должен проверять возможность обмена помещениями и допустимость номеров помещений, выбрасывать при необходимости соответствующие исключения.
 }
 

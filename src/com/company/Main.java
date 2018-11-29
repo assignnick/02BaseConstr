@@ -3,10 +3,7 @@ package com.company;
 
 import buildings.dwelling.*;
 import buildings.office.*;
-import buildings.threads.Cleaner;
-import buildings.threads.Repairer;
-import buildings.threads.SequentalCleaner;
-import buildings.threads.SequentalRepairer;
+import buildings.threads.*;
 import interfaces.Space;
 
 import java.io.BufferedWriter;
@@ -69,10 +66,10 @@ class Main {
 */
 
 
-        Semaphore sem = new Semaphore(1);
+        mySemaphore sem = new mySemaphore();
         DwellingFloor strmflr = new DwellingFloor(4);
-    	Thread repairer = new Thread(new SequentalRepairer(strmflr,sem));
-    	Thread cleaner = new Thread(new SequentalCleaner(strmflr,sem));
+        new Thread(new SequentalCleaner(strmflr,sem));
+    	new Thread(new SequentalRepairer(strmflr,sem));
 //    	repairer.start();
 //    	cleaner.start();
 

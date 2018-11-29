@@ -58,14 +58,14 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
         return floors;
     }
 
-    public Floor getOneFloor(int number){  //метод получения объекта этажа, по его номеру в доме
+    public Floor getFloor(int number){  //метод получения объекта этажа, по его номеру в доме
         if ((number >= getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
         return floors[number];
     }
 
-    public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+    public void setFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
         if ((number >= getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
@@ -96,12 +96,12 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
         return   flat-1;
     }
 
-    public void changeSpace(int number, Space newFlat){  //изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
+    public void setSpace(int number, Space newFlat){  //изменения объекта квартиры по ее номеру в доме и ссылке на объект квартиры
         if ((number >= getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
         int flat= getNumberSpace(number);
-        floors[flat].changeSpace(flat,newFlat);
+        floors[flat].setSpace(flat,newFlat);
     }
 
     public void addSpace(int number, Space newFlat){  //метод добавления квартиры в дом по будущему номеру квартиры в доме и ссылке на объект квартиры
@@ -194,7 +194,7 @@ public class Dwelling implements Building,Serializable,Cloneable, Iterable<Floor
             // clone of attay
             for(int i = 0; i < result.getAmountFloors(); i++) {
               //  result.floors[i] = (Floor)result.getOneFloor(i).clone();
-                result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
+                result.setFloor(i, (Floor)result.getFloor(i).clone());
 
 //                for(int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
 //                    result.getOneFloor(i).changeSpace(j, (Space)result.getSpace(j).clone());

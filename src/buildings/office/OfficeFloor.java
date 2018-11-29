@@ -152,7 +152,7 @@ public class OfficeFloor implements Floor,Serializable,Cloneable,Iterable<Space>
         return temp.next.oneOffice;
     }
 
-    public void changeSpace(int number, Space newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
+    public void setSpace(int number, Space newOffice){  //метод изменения офиса по ее номеру на этаже и ссылке на новый офис
         if ((number >= getAmountSpaces())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }

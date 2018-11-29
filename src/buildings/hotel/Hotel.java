@@ -105,7 +105,7 @@ public class Hotel extends Dwelling{
         // clone of attay
         for(int i = 0; i < result.getAmountFloors(); i++) {
 
-            result.changeFloor(i, (Floor)result.getOneFloor(i).clone());
+            result.setFloor(i, (Floor)result.getFloor(i).clone());
         }
         return result;
     }

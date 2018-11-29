@@ -50,7 +50,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
         return flats[number];
     }
 
-    public void changeSpace(int number, Space newFlat) {  //метод изменения квартиры по ее номеру на этаже и ссылке на новую квартиру
+    public void setSpace(int number, Space newFlat) {  //метод изменения квартиры по ее номеру на этаже и ссылке на новую квартиру
         flats[number] = (Flat) newFlat;
     }
 
@@ -127,7 +127,7 @@ public class DwellingFloor implements Floor, Serializable, Cloneable {
             result.flats = this.flats.clone();
 
             for (int i = 0; i < result.getAmountSpaces(); i++) {
-                result.changeSpace(i, (Space) result.getOneSpace(i).clone());
+                result.setSpace(i, (Space) result.getOneSpace(i).clone());
             }
         } catch (CloneNotSupportedException e) {
             throw new InternalError();

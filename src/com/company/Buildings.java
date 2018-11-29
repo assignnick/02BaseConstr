@@ -1,20 +1,16 @@
 package com.company;
 
 
+import buildings.SynchronizedFloor;
 import buildings.dwelling.Dwelling;
 import buildings.factory.DwellingFactory;
-import buildings.factory.HotelFactory;
-import buildings.factory.OfficeFactory;
-import buildings.hotel.Hotel;
-import buildings.office.OfficeBuilding;
-import buildings.sortFloor;
-import buildings.sortSpace;
 import interfaces.Building;
 import interfaces.BuildingFactory;
 import interfaces.Floor;
 import interfaces.Space;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Scanner;
@@ -75,7 +71,7 @@ public class Buildings {
         Space space;
         byteOut.writeInt(building.getAmountFloors());
         for (int i = 0, max = building.getAmountFloors(); i < max; i++) {
-            floor = building.getOneFloor(i);
+            floor = building.getFloor(i);
             byteOut.writeInt(floor.getAmountSpaces());
             for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
                 space = floor.getOneSpace(j);
@@ -121,7 +117,7 @@ public class Buildings {
         print.print(building.getAmountFloors());
         print.print(" ");
         for (int i = 0, max = building.getAmountFloors(); i < max; i++) {
-            floor = building.getOneFloor(i);
+            floor = building.getFloor(i);
             print.print(floor.getAmountSpaces());
             print.print(" ");
             for (int j = 0, maxS = floor.getAmountSpaces(); j < maxS; j++) {
@@ -203,7 +199,7 @@ public class Buildings {
             Building build = null;
             in = new ObjectInputStream(new FileInputStream("out.bin"));
 //            if (BuildingFactory instanceof DwellingFactory)
-                build = (Dwelling) in.readObject();
+            build = (Dwelling) in.readObject();
 //            else if (BuildingFactory instanceof OfficeFactory)
 //                build = (OfficeBuilding) in.readObject();
 //            else if (BuildingFactory instanceof HotelFactory)
@@ -228,7 +224,7 @@ public class Buildings {
         double size;
         formatter.format("Количество этажей %s\n", max);
         for (int i = 0; i < max; i++) {
-            floor = building.getOneFloor(i);
+            floor = building.getFloor(i);
             int maxS = floor.getAmountSpaces();
             formatter.format("Этаж %s(%s). Квартир на этаже %s\n", i + 1, i, maxS);
             int number = 0;
@@ -243,11 +239,21 @@ public class Buildings {
         }
     }
 
-    public int Sort(Object o1, Object o2) {
-        if (o1 instanceof Space && o2 instanceof Space)
-            return new sortSpace().compare((Space)o1,(Space)o2);
-        else if (o1 instanceof Floor && o2 instanceof Floor)
-            return new sortFloor().compare((Floor)o1,(Floor)o2);
-        return 0;
+    public static <E extends Comparable<E>> E[] sort(E[] e) {
+        E[] result = Arrays.copyOf(e, e.length);
+        Arrays.sort(result);
+        return result;
+
     }
+
+    public static <E> E[] sort(E[] e, Comparator<E> comp) {
+        E[] result = Arrays.copyOf(e, e.length);
+        Arrays.sort(result, comp);
+        return result;
+    }
+
+    public Floor synchronizedFloor(Floor floor) {
+        return new SynchronizedFloor(floor);
+    }
+
 }

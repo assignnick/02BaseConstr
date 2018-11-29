@@ -147,14 +147,14 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         return floors;
     }
 
-    public Floor getOneFloor(int number){  //метод получения объекта этажа, по его номеру
+    public Floor getFloor(int number){  //метод получения объекта этажа, по его номеру
         if ((number > getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
         return getNode(number).oneOfficeFloor;
     }
 
-    public void changeFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
+    public void setFloor(int number, Floor newFloor){  //метод изменения этажа по его номеру в доме и ссылке на обновленный этаж
         if ((number > getAmountFloors())||(number < 0)) {
             throw new FloorIndexOutOfBoundsException();
         }
@@ -173,9 +173,9 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountSpaces())
-                return getOneFloor(i).getOneSpace(number);
-            number-=getOneFloor(i).getAmountSpaces();
+            if(number< getFloor(i).getAmountSpaces())
+                return getFloor(i).getOneSpace(number);
+            number-= getFloor(i).getAmountSpaces();
         }
         return null;
     }
@@ -188,14 +188,14 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountSpaces())
+            if(number< getFloor(i).getAmountSpaces())
                 return number;
-            number-=getOneFloor(i).getAmountSpaces();
+            number-= getFloor(i).getAmountSpaces();
         }
         return 0;
     }
 
-    public void changeSpace(int number, Space newOffice){  //изменения объекта офиса по ее номеру в доме и ссылке на объект
+    public void setSpace(int number, Space newOffice){  //изменения объекта офиса по ее номеру в доме и ссылке на объект
         if ((number > getAmountSpace())||(number < 0)) {
             throw new SpaceIndexOutOfBoundsException();
         }
@@ -203,11 +203,11 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountSpaces()) {
-                getOneFloor(i).changeSpace(number, newOffice);
+            if(number< getFloor(i).getAmountSpaces()) {
+                getFloor(i).setSpace(number, newOffice);
                 break;
             }
-            number-=getOneFloor(i).getAmountSpaces();
+            number-= getFloor(i).getAmountSpaces();
         }
     }
 
@@ -219,11 +219,11 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountSpaces()) {
-                getOneFloor(i).addSpace(number, newOffice);
+            if(number< getFloor(i).getAmountSpaces()) {
+                getFloor(i).addSpace(number, newOffice);
                 break;
             }
-            number-=getOneFloor(i).getAmountSpaces();
+            number-= getFloor(i).getAmountSpaces();
         }
     }
 
@@ -235,11 +235,11 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         for (int i=0;i<getAmountFloors();++i)
         {
             temp=temp.next;
-            if(number<getOneFloor(i).getAmountSpaces()) {
-                getOneFloor(i).removeSpace(number);
+            if(number< getFloor(i).getAmountSpaces()) {
+                getFloor(i).removeSpace(number);
                 break;
             }
-            number-=getOneFloor(i).getAmountSpaces();
+            number-= getFloor(i).getAmountSpaces();
         }
     }
 
@@ -319,9 +319,9 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         try {
             result = (Building) super.clone();
             for (int i = 0; i < result.getAmountFloors(); i++) {
-                result.changeFloor(i, (Floor) result.getOneFloor(i).clone());
-                for (int j = 0; j < result.getOneFloor(i).getAmountSpaces(); i++) {
-                    result.getOneFloor(i).changeSpace(j, (Space) result.getSpace(j).clone());
+                result.setFloor(i, (Floor) result.getFloor(i).clone());
+                for (int j = 0; j < result.getFloor(i).getAmountSpaces(); i++) {
+                    result.getFloor(i).setSpace(j, (Space) result.getSpace(j).clone());
                 }
             }
         } catch (CloneNotSupportedException e) {

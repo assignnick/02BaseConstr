@@ -39,8 +39,8 @@ public class SynchronizedFloor implements Floor {
     }
 
     @Override
-    public synchronized void changeSpace(int index, Space space) {
-        floor.changeSpace(index, space);
+    public synchronized void setSpace(int index, Space space) {
+        floor.setSpace(index, space);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class SynchronizedFloor implements Floor {
         try {
             result = (Floor) super.clone();
             for(int i = 0; i < result.getAmountSpaces(); i++) {
-                result.changeSpace(i, (Space)result.getOneSpace(i).clone());
+                result.setSpace(i, (Space)result.getOneSpace(i).clone());
             }
         } catch (CloneNotSupportedException e) {
             throw new InternalError();

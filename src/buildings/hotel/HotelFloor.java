@@ -1,7 +1,6 @@
 package buildings.hotel;
 
 import buildings.dwelling.DwellingFloor;
-import buildings.dwelling.Flat;
 import interfaces.Space;
 
 import java.util.Arrays;
@@ -78,7 +77,7 @@ public class HotelFloor extends DwellingFloor{
             result.flats = this.flats.clone();
 
             for(int i = 0; i < result.getAmountSpaces(); i++) {
-                result.changeSpace(i, (Space)result.getOneSpace(i).clone());
+                result.setSpace(i, (Space)result.getOneSpace(i).clone());
             }
             return result;
         }
