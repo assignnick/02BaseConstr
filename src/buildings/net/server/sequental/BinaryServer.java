@@ -58,18 +58,15 @@ public class BinaryServer {
     public static void main(String[] args) throws IOException, BuildingUnderArrestException {
         ServerSocket server = new ServerSocket();
         Socket client = server.accept();
-        BufferedReader reader = null;
-        PrintWriter writer = null;
-        System.out.print("Connection accepted.");
 
-//        DataInputStream in = new DataInputStream(client.getInputStream());
-//        DataOutputStream out = new DataOutputStream(client.getOutputStream());
+        System.out.print("Connection accepted.");
+        DataInputStream in = new DataInputStream(client.getInputStream());
+        DataOutputStream out = new DataOutputStream(client.getOutputStream());
 
         while(!client.isClosed()) {
-            writer = new PrintWriter(client.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
             System.out.println("Server reading from channel.");
-            String t = new String(in.readUTF());
+            String t = in.readUTF();
             switch (t) {
                 case "Hotel" : Buildings.setBuildingFactory(new HotelFactory());
                 case "OfficeBuilding": Buildings.setBuildingFactory(new OfficeFactory());
@@ -83,6 +80,6 @@ public class BinaryServer {
         }
         in.close();
         out.close();
-        System.out.println("Closing connections & channels on serverSide - DONE.");
+        System.out.println("Closing connections on serverSide");
     }
 }

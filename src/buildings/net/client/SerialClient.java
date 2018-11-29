@@ -47,11 +47,11 @@ public class SerialClient {
             System.out.println("Client read message from server and wrote it in the file.");
         }
 
-//        buildingCosts.close();
-//        writer.close();
-//        reader.close();
-//        buildingInfo.close();
-//        buildingType.close();
+        buildingCosts.close();
+        writer.close();
+        reader.close();
+        buildingInfo.close();
+        buildingType.close();
         System.out.println("Closing connections on clentSide");
     }
 }

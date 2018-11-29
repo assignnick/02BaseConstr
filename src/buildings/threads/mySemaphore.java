@@ -12,21 +12,13 @@ public class mySemaphore {
         acquiredBy = SequentalCleaner.class.getName();
     }
 
-    public void acquire(Runnable thread) {
+    public void acquire(Runnable thread) throws InterruptedException {
         synchronized (this) {
             if (!free) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                this.wait();
             }
             if (acquiredBy.equals(thread.getClass().getName())) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                this.wait();
             }
             free = false;
         }

@@ -1,5 +1,7 @@
 package com.company;
-
+/**
+ * 13 декабря
+ */
 
 import buildings.dwelling.*;
 import buildings.office.*;

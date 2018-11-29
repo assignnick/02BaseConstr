@@ -15,7 +15,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
-/**
+/*
  * Создайте новые классы buildings.net.client.SerialClient,
  * buildings.net.server.sequental.SerialServer и buildings.net.server.parallel.SerialServer,
  * решающие ту же задачу, но отличающиеся по протоколу взаимодействия:
@@ -26,8 +26,8 @@ import java.util.Random;
 public class SerialServer {
     private static boolean isArrested() {
         Random random = new Random();
-        int res = random.nextInt(101);
-        if(res > 10) return true;
+        int res = random.nextInt(9);
+        if(res > 0) return true;
         return false;
     }
 
@@ -63,13 +63,13 @@ public class SerialServer {
                 case "Dwelling" : Buildings.setBuildingFactory(new DwellingFactory());
             }
             Building theBuilding = (Building) in.readObject();
-            System.out.println("Server writing to channel...");
+            System.out.println("Server writing to channel");
             out.writeDouble(value(t, theBuilding));
             out.flush();
             System.out.println("Server wrote message in channel.");
         }
         in.close();
         out.close();
-        System.out.println("Closing connections & channels on serverSide - DONE.");
+        System.out.println("Closing connections on serverSide");
     }
 }
