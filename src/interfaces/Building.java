@@ -13,6 +13,7 @@ public interface  Building extends Iterable<Floor>{
     public void addSpace(int index, Space oneSpace);//вставке помещения в здании по будущему номеру и ссылке на новое помещение
     public void removeSpace(int index);//удаления помещения из здания
     public Space getBestSpace();//получения лучшего помещения в здании
+    public double getCostMultiplier();
     public Space[] getMassSpace();//получения отсортированного массива всех помещений
     public String name();
     public Object clone();

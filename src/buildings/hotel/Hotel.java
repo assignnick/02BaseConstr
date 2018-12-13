@@ -58,6 +58,10 @@ public class Hotel extends Dwelling{
             return bestSpace;
         }
 
+        public double getCostMultiplier(){
+        return 2000;
+        }
+
 
     public String toString() {
         StringBuilder str = new StringBuilder();

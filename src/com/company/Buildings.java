@@ -4,6 +4,10 @@ package com.company;
 import buildings.SynchronizedFloor;
 import buildings.dwelling.Dwelling;
 import buildings.factory.DwellingFactory;
+import buildings.factory.HotelFactory;
+import buildings.factory.OfficeFactory;
+import buildings.hotel.Hotel;
+import buildings.office.OfficeBuilding;
 import interfaces.Building;
 import interfaces.BuildingFactory;
 import interfaces.Floor;
@@ -237,6 +241,16 @@ public class Buildings {
                 formatter.format("Комнат: %s, Площадь: %.2f\n", rooms, size);
             }
         }
+    }
+    public static BuildingFactory getFactoryFromName(String className) {
+        if (className.equals(Dwelling.class.getName())) {
+            return new DwellingFactory();
+        } else if (className.equals(Hotel.class.getName())) {
+            return new HotelFactory();
+        } else if (className.equals(OfficeBuilding.class.getName())) {
+            return new OfficeFactory();
+        }
+        throw new IllegalArgumentException();
     }
 
     public static <E extends Comparable<E>> E[] sort(E[] e) {

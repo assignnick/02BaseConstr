@@ -1,4 +1,4 @@
-package buildings.net.client;
+package net.client;
 
 import buildings.factory.DwellingFactory;
 import buildings.factory.HotelFactory;
@@ -10,7 +10,7 @@ import java.io.*;
 import java.net.Socket;
 
 /*
-        Реализуйте клиентскую часть приложения в новом классе buildings.net.client.BinaryClient,содержащем метод main().
+        Реализуйте клиентскую часть приложения в новом классе net.client.BinaryClient,содержащем метод main().
         Задайте имена трех файлов.
         Первый файл существует на момент запуска программы и содержит
         в текстовом виде информацию о зданиях(например,одна строка – одно здание).
@@ -36,8 +36,8 @@ public class BinaryClient {
     public static void main(String[] args) throws IOException, InterruptedException {
 
 
-        Socket socket = new Socket();
-        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        Socket socket = new Socket("localhost", 4004);
+        PrintWriter writer = new PrintWriter(socket.getOutputStream(),true);
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         BufferedReader buildingInfo = new BufferedReader(new FileReader("buildinginfo.txt"));
@@ -50,15 +50,8 @@ public class BinaryClient {
         while ((str = buildingType.readLine()) != null) {
 
             System.out.println("Client start reading info about building");
+                    Buildings.setBuildingFactory(Buildings.getFactoryFromName(str));
 
-            switch (str) {
-                case "Hotel":
-                    Buildings.setBuildingFactory(new HotelFactory());
-                case "OfficeBuilding":
-                    Buildings.setBuildingFactory(new OfficeFactory());
-                case "Dwelling":
-                    Buildings.setBuildingFactory(new DwellingFactory());
-            }
             Building building = Buildings.readBuilding(buildingInfo);
             Buildings.writeBuilding(building, writer);
             writer.flush();

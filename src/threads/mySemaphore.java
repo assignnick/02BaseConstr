@@ -1,8 +1,7 @@
-package buildings.threads;
+package threads;
 
 
 public class mySemaphore {
-
 
     private boolean free;
     private String acquiredBy;
@@ -12,13 +11,21 @@ public class mySemaphore {
         acquiredBy = SequentalCleaner.class.getName();
     }
 
-    public void acquire(Runnable thread) throws InterruptedException {
+    public void acquire(Runnable thread)  {
         synchronized (this) {
             if (!free) {
-                this.wait();
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             if (acquiredBy.equals(thread.getClass().getName())) {
-                this.wait();
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             free = false;
         }

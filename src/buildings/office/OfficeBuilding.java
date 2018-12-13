@@ -275,6 +275,10 @@ public class OfficeBuilding implements Building,Serializable,Cloneable,Iterable<
         return sortm;
         }
 
+    public double getCostMultiplier(){
+        return 1500;
+    }
+
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("OfficeBuilding ");

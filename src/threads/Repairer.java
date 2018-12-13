@@ -1,12 +1,12 @@
-package buildings.threads;
+package threads;
 
 import interfaces.Floor;
 import interfaces.Space;
 
-public class Cleaner extends Thread{
-    private Floor floor;
+public class Repairer extends Thread {
+    protected Floor floor;
 
-    public Cleaner(Floor floor) {
+    public Repairer(Floor floor) {
         this.floor = floor;
     }
 
@@ -15,7 +15,9 @@ public class Cleaner extends Thread{
         int spacesAmount = floor.getAmountSpaces();
         Space[] spaces = floor.getMassSpace();
         for(int i = 0; i < spacesAmount; i++) {
-            System.out.println("Cleaning space number " + i + " with total area " + spaces[i].getSize() + " square meters");
+            System.out.println("Repairing space number " + i + " with total area " + spaces[i].getSize() + " square meters");
         }
+
     }
 }
+

@@ -1,14 +1,15 @@
-package buildings.threads;
+package threads;
 
 import interfaces.Floor;
 import interfaces.Space;
 
+
 public class SequentalRepairer implements Runnable {
     private Floor floor;
-    mySemaphore semaphore;
+    mySemaphore sem;
 
-    public SequentalRepairer(Floor floor, mySemaphore semaphore) {
-        this.semaphore = semaphore;
+    public SequentalRepairer(Floor floor, mySemaphore sem) {
+        this.sem = sem;
         this.floor = floor;
         new Thread(this).start();
     }
@@ -20,10 +21,10 @@ public class SequentalRepairer implements Runnable {
         int spacesAmount = floor.getAmountSpaces();
         Space[] spaces = floor.getMassSpace();
         for (int i = 0; i < spacesAmount; i++) {
-            semaphore.acquire(this);
+            sem.acquire(this);
             System.out.printf("Repairing space number %d with total area %s square meters%n", i, spaces[i].getSize());
             System.out.println("Stream SequentalRepairer frees permission");
-            semaphore.release(this);
+            sem.release(this);
         }
     }
 }

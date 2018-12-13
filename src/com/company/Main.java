@@ -5,20 +5,16 @@ package com.company;
 
 import buildings.dwelling.*;
 import buildings.office.*;
-import buildings.threads.*;
-import interfaces.Space;
+import threads.*;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Random;
-import java.util.concurrent.Semaphore;
 
 class Main {
     public static void main(String[] s) {
         Random random = new Random();
         Dwelling dom = new Dwelling(5, 4);
-      //  System.out.println(Dom.getMassSpace());
+
+      System.out.println(dom.toString());
         System.out.println("");
         OfficeBuilding newOff = new OfficeBuilding(3, new int[]{3, 4, 5});
 
@@ -74,6 +70,7 @@ class Main {
     	new Thread(new SequentalRepairer(strmflr,sem));
 //    	repairer.start();
 //    	cleaner.start();
+
 
       /*  Thread repairer = new Thread(new Cleaner(strmflr));
         repairer.start();*/

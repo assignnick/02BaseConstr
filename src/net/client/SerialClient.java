@@ -1,4 +1,4 @@
-package buildings.net.client;
+package net.client;
 
 import buildings.factory.DwellingFactory;
 import buildings.factory.HotelFactory;
@@ -8,7 +8,6 @@ import interfaces.Building;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class SerialClient {
     public static void main (String[] args) throws IOException, InterruptedException {
